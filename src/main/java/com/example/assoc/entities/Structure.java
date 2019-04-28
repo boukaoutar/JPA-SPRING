@@ -45,11 +45,11 @@ public class Structure implements Serializable {
 	public Structure() {
 	}
 
-	public int getIdStructure() {
+	public Integer getIdStructure() {
 		return this.idStructure;
 	}
 
-	public void setIdStructure(int idStructure) {
+	public void setIdStructure(Integer idStructure) {
 		this.idStructure = idStructure;
 	}
 

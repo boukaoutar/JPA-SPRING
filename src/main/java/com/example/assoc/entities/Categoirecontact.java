@@ -29,11 +29,11 @@ public class Categoirecontact implements Serializable {
 	public Categoirecontact() {
 	}
 
-	public int getId_catCon() {
+	public Integer getId_catCon() {
 		return this.id_catCon;
 	}
 
-	public void setId_catCon(int id_catCon) {
+	public void setId_catCon(Integer id_catCon) {
 		this.id_catCon = id_catCon;
 	}
 

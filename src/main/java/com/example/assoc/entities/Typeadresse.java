@@ -29,11 +29,11 @@ public class Typeadresse implements Serializable {
 	public Typeadresse() {
 	}
 
-	public int getId_typeAdrs() {
+	public Integer getId_typeAdrs() {
 		return this.id_typeAdrs;
 	}
 
-	public void setId_typeAdrs(int id_typeAdrs) {
+	public void setId_typeAdrs(Integer id_typeAdrs) {
 		this.id_typeAdrs = id_typeAdrs;
 	}
 

@@ -40,11 +40,11 @@ public class Media implements Serializable {
 	public Media() {
 	}
 
-	public int getIdMedia() {
+	public Integer getIdMedia() {
 		return this.idMedia;
 	}
 
-	public void setIdMedia(int idMedia) {
+	public void setIdMedia(Integer idMedia) {
 		this.idMedia = idMedia;
 	}
 

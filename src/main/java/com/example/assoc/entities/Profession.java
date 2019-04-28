@@ -30,11 +30,11 @@ public class Profession implements Serializable {
 	public Profession() {
 	}
 
-	public int getIdProfession() {
+	public Integer getIdProfession() {
 		return this.idProfession;
 	}
 
-	public void setIdProfession(int idProfession) {
+	public void setIdProfession(Integer idProfession) {
 		this.idProfession = idProfession;
 	}
 

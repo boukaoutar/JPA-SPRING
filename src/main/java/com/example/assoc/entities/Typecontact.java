@@ -29,11 +29,11 @@ public class Typecontact implements Serializable {
 	public Typecontact() {
 	}
 
-	public int getId_typeCont() {
+	public Integer getId_typeCont() {
 		return this.id_typeCont;
 	}
 
-	public void setId_typeCont(int id_typeCont) {
+	public void setId_typeCont(Integer id_typeCont) {
 		this.id_typeCont = id_typeCont;
 	}
 

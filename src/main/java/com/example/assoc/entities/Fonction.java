@@ -30,11 +30,11 @@ public class Fonction implements Serializable {
 	public Fonction() {
 	}
 
-	public int getIdFonction() {
+	public Integer getIdFonction() {
 		return this.idFonction;
 	}
 
-	public void setIdFonction(int idFonction) {
+	public void setIdFonction(Integer idFonction) {
 		this.idFonction = idFonction;
 	}
 

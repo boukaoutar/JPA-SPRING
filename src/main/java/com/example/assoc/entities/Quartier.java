@@ -35,11 +35,11 @@ public class Quartier implements Serializable {
 	public Quartier() {
 	}
 
-	public int getIdQuartier() {
+	public Integer getIdQuartier() {
 		return this.idQuartier;
 	}
 
-	public void setIdQuartier(int idQuartier) {
+	public void setIdQuartier(Integer idQuartier) {
 		this.idQuartier = idQuartier;
 	}
 

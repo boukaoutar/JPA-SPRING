@@ -26,11 +26,11 @@ public class Ligneadherent implements Serializable {
 	public Ligneadherent() {
 	}
 
-	public int getId_ligneAder() {
+	public Integer getId_ligneAder() {
 		return this.id_ligneAder;
 	}
 
-	public void setId_ligneAder(int id_ligneAder) {
+	public void setId_ligneAder(Integer id_ligneAder) {
 		this.id_ligneAder = id_ligneAder;
 	}
 

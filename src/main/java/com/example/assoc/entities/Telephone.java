@@ -35,11 +35,11 @@ public class Telephone implements Serializable {
 	public Telephone() {
 	}
 
-	public int getIdTel() {
+	public Integer getIdTel() {
 		return this.idTel;
 	}
 
-	public void setIdTel(int idTel) {
+	public void setIdTel(Integer idTel) {
 		this.idTel = idTel;
 	}
 

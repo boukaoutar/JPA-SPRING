@@ -25,11 +25,11 @@ public class Communaute implements Serializable {
 	public Communaute() {
 	}
 
-	public int getIdCommunaute() {
+	public Integer getIdCommunaute() {
 		return this.idCommunaute;
 	}
 
-	public void setIdCommunaute(int idCommunaute) {
+	public void setIdCommunaute(Integer idCommunaute) {
 		this.idCommunaute = idCommunaute;
 	}
 

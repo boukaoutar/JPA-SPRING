@@ -29,11 +29,11 @@ public class Typeaction implements Serializable {
 	public Typeaction() {
 	}
 
-	public int getId_typeAction() {
+	public Integer getId_typeAction() {
 		return this.id_typeAction;
 	}
 
-	public void setId_typeAction(int id_typeAction) {
+	public void setId_typeAction(Integer id_typeAction) {
 		this.id_typeAction = id_typeAction;
 	}
 

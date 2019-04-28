@@ -35,11 +35,11 @@ public class Organisateur implements Serializable {
 	public Organisateur() {
 	}
 
-	public int getIdOrganisateurs() {
+	public Integer getIdOrganisateurs() {
 		return this.idOrganisateurs;
 	}
 
-	public void setIdOrganisateurs(int idOrganisateurs) {
+	public void setIdOrganisateurs(Integer idOrganisateurs) {
 		this.idOrganisateurs = idOrganisateurs;
 	}
 

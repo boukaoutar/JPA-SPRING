@@ -35,11 +35,11 @@ public class Ressource implements Serializable {
 	public Ressource() {
 	}
 
-	public int getIdRessource() {
+	public Integer getIdRessource() {
 		return this.idRessource;
 	}
 
-	public void setIdRessource(int idRessource) {
+	public void setIdRessource(Integer idRessource) {
 		this.idRessource = idRessource;
 	}
 

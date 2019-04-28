@@ -88,11 +88,11 @@ public class Action implements Serializable {
 	public Action() {
 	}
 
-	public int getIdAction() {
+	public Integer getIdAction() {
 		return this.idAction;
 	}
 
-	public void setIdAction(int idAction) {
+	public void setIdAction(Integer idAction) {
 		this.idAction = idAction;
 	}
 

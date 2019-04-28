@@ -35,11 +35,11 @@ public class Projet implements Serializable {
 	public Projet() {
 	}
 
-	public int getIdProjet() {
+	public Integer getIdProjet() {
 		return this.idProjet;
 	}
 
-	public void setIdProjet(int idProjet) {
+	public void setIdProjet(Integer idProjet) {
 		this.idProjet = idProjet;
 	}
 

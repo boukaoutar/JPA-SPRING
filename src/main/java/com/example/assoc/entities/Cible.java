@@ -35,11 +35,11 @@ public class Cible implements Serializable {
 	public Cible() {
 	}
 
-	public int getIdCible() {
+	public Integer getIdCible() {
 		return this.idCible;
 	}
 
-	public void setIdCible(int idCible) {
+	public void setIdCible(Integer idCible) {
 		this.idCible = idCible;
 	}
 

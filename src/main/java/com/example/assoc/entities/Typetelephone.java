@@ -30,11 +30,11 @@ public class Typetelephone implements Serializable {
 	public Typetelephone() {
 	}
 
-	public int getIdTypetel() {
+	public Integer getIdTypetel() {
 		return this.idTypetel;
 	}
 
-	public void setIdTypetel(int idTypetel) {
+	public void setIdTypetel(Integer idTypetel) {
 		this.idTypetel = idTypetel;
 	}
 

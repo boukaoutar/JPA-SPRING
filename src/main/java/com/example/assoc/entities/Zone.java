@@ -30,11 +30,11 @@ public class Zone implements Serializable {
 	public Zone() {
 	}
 
-	public int getIdZone() {
+	public Integer getIdZone() {
 		return this.idZone;
 	}
 
-	public void setIdZone(int idZone) {
+	public void setIdZone(Integer idZone) {
 		this.idZone = idZone;
 	}
 

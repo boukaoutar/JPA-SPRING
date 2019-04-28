@@ -24,11 +24,11 @@ public class Bureauvote implements Serializable {
 	public Bureauvote() {
 	}
 
-	public int getId_bureauV() {
+	public Integer getId_bureauV() {
 		return this.id_bureauV;
 	}
 
-	public void setId_bureauV(int id_bureauV) {
+	public void setId_bureauV(Integer id_bureauV) {
 		this.id_bureauV = id_bureauV;
 	}
 

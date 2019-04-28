@@ -32,11 +32,11 @@ public class Situation implements Serializable {
 	public Situation() {
 	}
 
-	public int getIdSituation() {
+	public Integer getIdSituation() {
 		return this.idSituation;
 	}
 
-	public void setIdSituation(int idSituation) {
+	public void setIdSituation(Integer idSituation) {
 		this.idSituation = idSituation;
 	}
 

@@ -30,11 +30,11 @@ public class Contribution implements Serializable {
 	public Contribution() {
 	}
 
-	public int getIdContribution() {
+	public Integer getIdContribution() {
 		return this.idContribution;
 	}
 
-	public void setIdContribution(int idContribution) {
+	public void setIdContribution(Integer idContribution) {
 		this.idContribution = idContribution;
 	}
 

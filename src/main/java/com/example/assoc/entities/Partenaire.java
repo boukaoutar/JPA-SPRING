@@ -39,11 +39,11 @@ public class Partenaire implements Serializable {
 	public Partenaire() {
 	}
 
-	public int getIdPartenaire() {
+	public Integer getIdPartenaire() {
 		return this.idPartenaire;
 	}
 
-	public void setIdPartenaire(int idPartenaire) {
+	public void setIdPartenaire(Integer idPartenaire) {
 		this.idPartenaire = idPartenaire;
 	}
 

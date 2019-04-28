@@ -29,11 +29,11 @@ public class Typemedia implements Serializable {
 	public Typemedia() {
 	}
 
-	public int getId_typeMedia() {
+	public Integer getId_typeMedia() {
 		return this.id_typeMedia;
 	}
 
-	public void setId_typeMedia(int id_typeMedia) {
+	public void setId_typeMedia(Integer id_typeMedia) {
 		this.id_typeMedia = id_typeMedia;
 	}
 

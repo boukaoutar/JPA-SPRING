@@ -29,11 +29,11 @@ public class Typeorganisme implements Serializable {
 	public Typeorganisme() {
 	}
 
-	public int getId_typeOrga() {
+	public Integer getId_typeOrga() {
 		return this.id_typeOrga;
 	}
 
-	public void setId_typeOrga(int id_typeOrga) {
+	public void setId_typeOrga(Integer id_typeOrga) {
 		this.id_typeOrga = id_typeOrga;
 	}
 

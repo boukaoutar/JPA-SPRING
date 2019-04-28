@@ -30,11 +30,11 @@ public class Historique implements Serializable {
 	public Historique() {
 	}
 
-	public int getIdHistorique() {
+	public Integer getIdHistorique() {
 		return this.idHistorique;
 	}
 
-	public void setIdHistorique(int idHistorique) {
+	public void setIdHistorique(Integer idHistorique) {
 		this.idHistorique = idHistorique;
 	}
 

@@ -46,11 +46,11 @@ public class Adresse implements Serializable {
 	public Adresse() {
 	}
 
-	public int getIdAdresse() {
+	public Integer getIdAdresse() {
 		return this.idAdresse;
 	}
 
-	public void setIdAdresse(int idAdresse) {
+	public void setIdAdresse(Integer idAdresse) {
 		this.idAdresse = idAdresse;
 	}
 

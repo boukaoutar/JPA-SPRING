@@ -42,11 +42,11 @@ public class Organisme implements Serializable {
 	public Organisme() {
 	}
 
-	public int getIdOrganisme() {
+	public Integer getIdOrganisme() {
 		return this.idOrganisme;
 	}
 
-	public void setIdOrganisme(int idOrganisme) {
+	public void setIdOrganisme(Integer idOrganisme) {
 		this.idOrganisme = idOrganisme;
 	}
 

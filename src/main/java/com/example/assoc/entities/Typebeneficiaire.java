@@ -30,11 +30,11 @@ public class Typebeneficiaire implements Serializable {
 	public Typebeneficiaire() {
 	}
 
-	public int getIdTypebenef() {
+	public Integer getIdTypebenef() {
 		return this.idTypebenef;
 	}
 
-	public void setIdTypebenef(int idTypebenef) {
+	public void setIdTypebenef(Integer idTypebenef) {
 		this.idTypebenef = idTypebenef;
 	}
 
