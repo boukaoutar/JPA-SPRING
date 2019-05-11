@@ -18,6 +18,12 @@ public class ContactController {
 	{
 		return "form";
 	}
+	
+	@RequestMapping("/signup.html")
+	public String signup()
+	{
+		return "signup";
+	}
 
 	@RequestMapping("/form_advanced.html")
 	public String formAD()

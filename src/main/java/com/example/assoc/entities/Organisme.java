@@ -14,14 +14,15 @@ import java.util.List;
 public class Organisme implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_organisme")
 	private Integer idOrganisme;
 
 	@Lob
 	private String adresse;
-
-	private String nom;
+	
+	@Column(name="nom_association",length=50,unique=true)
+	private String nom_association;
 
 	private String ville;
 
@@ -39,11 +40,25 @@ public class Organisme implements Serializable {
 	@OneToMany(mappedBy="organisme")
 	private List<Projet> projets;
 
+	
+	public Organisme(String adresse, String nom_association, String ville, Typeorganisme typeorganisme,
+			Structure structure, List<Projet> projets) {
+		super();
+		this.adresse = adresse;
+		this.nom_association = nom_association;
+		this.ville = ville;
+		this.typeorganisme = typeorganisme;
+		this.structure = structure;
+		this.projets = projets;
+	}
+	
 	public Organisme() {
+		super();
+
 	}
 
 	public Integer getIdOrganisme() {
-		return this.idOrganisme;
+		return idOrganisme;
 	}
 
 	public void setIdOrganisme(Integer idOrganisme) {
@@ -51,23 +66,23 @@ public class Organisme implements Serializable {
 	}
 
 	public String getAdresse() {
-		return this.adresse;
+		return adresse;
 	}
 
 	public void setAdresse(String adresse) {
 		this.adresse = adresse;
 	}
 
-	public String getNom() {
-		return this.nom;
+	public String getNom_association() {
+		return nom_association;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setNom_association(String nom_association) {
+		this.nom_association = nom_association;
 	}
 
 	public String getVille() {
-		return this.ville;
+		return ville;
 	}
 
 	public void setVille(String ville) {
@@ -75,7 +90,7 @@ public class Organisme implements Serializable {
 	}
 
 	public Typeorganisme getTypeorganisme() {
-		return this.typeorganisme;
+		return typeorganisme;
 	}
 
 	public void setTypeorganisme(Typeorganisme typeorganisme) {
@@ -83,7 +98,7 @@ public class Organisme implements Serializable {
 	}
 
 	public Structure getStructure() {
-		return this.structure;
+		return structure;
 	}
 
 	public void setStructure(Structure structure) {
@@ -91,11 +106,15 @@ public class Organisme implements Serializable {
 	}
 
 	public List<Projet> getProjets() {
-		return this.projets;
+		return projets;
 	}
 
 	public void setProjets(List<Projet> projets) {
 		this.projets = projets;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public Projet addProjet(Projet projet) {

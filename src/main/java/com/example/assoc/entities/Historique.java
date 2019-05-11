@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Historique implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_historique")
 	private Integer idHistorique;
 

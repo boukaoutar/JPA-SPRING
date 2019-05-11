@@ -14,7 +14,7 @@ import java.util.List;
 public class Typeadresse implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_typeAdrs;
 
 	@Lob
