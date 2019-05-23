@@ -2,6 +2,7 @@ package com.example.assoc.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 
 import org.hibernate.id.IntegralDataTypeHolder;
 
@@ -34,6 +35,7 @@ public class Contact implements Serializable {
 	
 	private String prenom;
 	
+	@Email
 	@Column(name="email",length=50)
 	private String email;
 	
