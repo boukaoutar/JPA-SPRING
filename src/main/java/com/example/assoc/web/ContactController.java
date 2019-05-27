@@ -1,13 +1,11 @@
 package com.example.assoc.web;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -18,7 +16,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.entities.Contact;
@@ -31,17 +28,25 @@ public class ContactController {
 	ContactRepository contactrepository;
 	
 	@RequestMapping(value = {"/login"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String login ()
+	public String login (Model model)
 	{
-	
+		model.addAttribute("contact",new Contact());
 			return "login";
 	}
 	
 	@RequestMapping(value = {"/typelogin"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String typelogin (@RequestParam(required=false,name="email") String email,Model model,HttpSession httpsession)
+	public String typelogin (@Valid Contact contact,BindingResult bindingresult,Model model,HttpSession httpsession)
 	{
-			
-			List<Organisme> ls = contactrepository.findorganismeByemail(email);
+
+			if(contact.getEmail() == null) return "redirect:login";
+			List<Organisme> ls = contactrepository.findorganismeByemail(contact.getEmail());
+
+		
+			if(bindingresult.hasErrors())
+			{
+				System.out.println("Error xxxxxxx : "+contact.getEmail());
+				return "login";
+			}
 			
 			if(ls.size()>0)
 			{
@@ -54,18 +59,26 @@ public class ContactController {
 				}
 			
 				model.addAttribute("listorganisme",listorganisme);
-				httpsession.setAttribute("email", email);
+				httpsession.setAttribute("email",contact.getEmail());
 				
 				return "typelogin";
 			}
-			return "redirect:login";
+			
+			if(ls.size()<=0)
+			{
+				model.addAttribute("errorvalidation","ce compte n'existe pas !!");
+				return "login";
+			}
+			
+			return "redirect:index";
+		
 		
 	}
 	
 	@RequestMapping(value = {"/passwordlogin"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String passwordlogin (@RequestParam(required=false,name="organisme") String organisme,HttpSession httpsession)
+	public String passwordlogin (@RequestParam(required=false,name="organisme") String organisme,HttpSession httpsession,Model model)
 	{
-		System.out.println("radio clicked : "+organisme);
+		model.addAttribute("contact",new Contact());
 		String email = (String) httpsession.getAttribute("email");
 		httpsession.setAttribute("organisme", organisme);
 		System.out.println("email session : "+email+"  organisme session : "+organisme);
@@ -78,32 +91,50 @@ public class ContactController {
 	}
 	
 	@RequestMapping(value = {"/connect"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String connect(@RequestParam(required=false,name="password") String password,HttpSession httpsession)
+	public String connect(HttpSession httpsession,@Valid Contact contact,BindingResult bindingresult,Model model)
 	{
-		String email = (String) httpsession.getAttribute("email");
-		String organisme = (String) httpsession.getAttribute("organisme");
+
+
+			String email = (String) httpsession.getAttribute("email");
+			String organisme = (String) httpsession.getAttribute("organisme");
+			
+			Contact c = contactrepository.Connecting(email, organisme, contact.getPassword());
+			if(email == null || organisme == null)
+			{
+				return "redirect:login";
+			}
+
+			
+			if(bindingresult.hasErrors())
+			{	
+				System.out.println("Erroor xxxxxxxxxxxxxxx ");
+				return "passwordlogin";
+			}
+			
+			if(c == null) {
+				model.addAttribute("errorvalidation","password incorrect !!");
+				return "passwordlogin";
+			}
+			
+			System.out.println("contact cin : "+c.getCin()+"  contact name : "+c.getNom()+" Type contact : "+c.getTypecontact().getNom());
+			httpsession.setAttribute("contact", c);
+			//httpsession.invalidate();
+
+			return "redirect:index";
 		
-		Contact c = contactrepository.Connecting(email, organisme, password);
-		if(email == null || organisme == null)
-		{
-			return "redirect:login";
-		}else
-		if(c == null) {
-			return "passwordlogin";
-		}
-		System.out.println("contact cin : "+c.getCin()+"  contact name : "+c.getNom()+" Type contact : "+c.getTypecontact().getNom());
-		/*if(bindingresult.hasErrors())
-		{
-			return "login";
-		}*/
-		return "index";
+		
 	}
 	
 	
 	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String index()
+	public String index(HttpSession httpsession)
 	{
+		if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}
 		return "index";
+		
 	}
 	
 	@RequestMapping("/form.html")
