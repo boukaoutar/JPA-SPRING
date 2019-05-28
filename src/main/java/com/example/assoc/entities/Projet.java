@@ -14,7 +14,7 @@ import java.util.List;
 public class Projet implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_projet")
 	private Integer idProjet;
 

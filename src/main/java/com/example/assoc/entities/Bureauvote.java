@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Bureauvote implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_bureauV;
 
 	@Lob

@@ -3,6 +3,15 @@ package com.example.assoc.entities;
 import java.io.Serializable;
 import javax.persistence.*;
 
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+
+import javax.validation.constraints.Size;
+
 import org.hibernate.id.IntegralDataTypeHolder;
 
 import java.util.List;
@@ -12,8 +21,12 @@ import java.util.List;
  * The persistent class for the contact database table.
  * 
  */
+
+//@NamedQuery(name="Contact.findAll", query="SELECT c FROM Contact c")
 @Entity
-@NamedQuery(name="Contact.findAll", query="SELECT c FROM Contact c")
+@Table(uniqueConstraints={
+	    @UniqueConstraint(columnNames = {"email", "id_organisme"})
+	})
 public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -21,24 +34,35 @@ public class Contact implements Serializable {
 	@Column(name="id_contact")
 	private Integer idContact;
 
-	private String cin;
-
-	private String dateAdhesion;
-
-	private String dateNaiss;
-
+	
+	@ManyToOne
+	@JoinColumn(name="id_organisme")
+	private Organisme idOrganisme;
+	
+	private String nom;
+	
+	private String prenom;
+	
+	@Column(name="email",length=50)
 	private String email;
+	
+	
+	private String password;
+	
+	private String cin;
+	
+	private String dateNaiss;
 
 	private String lieuNaiss;
 
-	private String nom;
+	private String dateAdhesion;
 
 	private int numeroVote;
 
 	@Lob
 	private String photo;
 
-	private String prenom;
+	
 
 	//bi-directional many-to-one association to Action
 	@OneToMany(mappedBy="contact")
@@ -79,102 +103,88 @@ public class Contact implements Serializable {
 	public Contact() {
 	}
 	
-	public Contact(String cin, String dateAdhesion, String dateNaiss, String email, String lieuNaiss, String nom,
-			int numeroVote, String photo, String prenom) {
+	public Contact(String nom, String prenom, String email, String password, String cin, String dateNaiss,
+			String lieuNaiss, String dateAdhesion, int numeroVote, String photo) {
 		super();
-		this.cin = cin;
-		this.dateAdhesion = dateAdhesion;
-		this.dateNaiss = dateNaiss;
-		this.email = email;
-		this.lieuNaiss = lieuNaiss;
 		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.password = password;
+		this.cin = cin;
+		this.dateNaiss = dateNaiss;
+		this.lieuNaiss = lieuNaiss;
+		this.dateAdhesion = dateAdhesion;
 		this.numeroVote = numeroVote;
 		this.photo = photo;
-		this.prenom = prenom;
 	}
-
-	public Contact(String cin, String dateAdhesion, String dateNaiss, String email, String lieuNaiss, String nom,
-			int numeroVote, String photo, String prenom, List<Action> actions, Typecontact typecontact,
-			Fonction fonction, Categoirecontact categoirecontact, Profession profession, List<Adresse> adresses,
-			List<Historique> historiques, List<Telephone> telephones) {
-		super();
-		this.cin = cin;
-		this.dateAdhesion = dateAdhesion;
-		this.dateNaiss = dateNaiss;
-		this.email = email;
-		this.lieuNaiss = lieuNaiss;
-		this.nom = nom;
-		this.numeroVote = numeroVote;
-		this.photo = photo;
-		this.prenom = prenom;
-		this.actions = actions;
-		this.typecontact = typecontact;
-		this.fonction = fonction;
-		this.categoirecontact = categoirecontact;
-		this.profession = profession;
-		this.adresses = adresses;
-		this.historiques = historiques;
-		this.telephones = telephones;
-	}
-
-	public Integer getIdContact() {
-		return this.idContact;
-	}
-
-	public void setIdContact(Integer idContact) {
-		this.idContact = idContact;
-	}
-
-	public String getCin() {
-		return this.cin;
-	}
-
-	public void setCin(String cin) {
-		this.cin = cin;
-	}
-
-	public String getDateAdhesion() {
-		return this.dateAdhesion;
-	}
-
-	public void setDateAdhesion(String dateAdhesion) {
-		this.dateAdhesion = dateAdhesion;
-	}
-
-	public String getDateNaiss() {
-		return this.dateNaiss;
-	}
-
-	public void setDateNaiss(String dateNaiss) {
-		this.dateNaiss = dateNaiss;
-	}
-
-	public String getEmail() {
-		return this.email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getLieuNaiss() {
-		return this.lieuNaiss;
-	}
-
-	public void setLieuNaiss(String lieuNaiss) {
-		this.lieuNaiss = lieuNaiss;
-	}
-
+	
+	
 	public String getNom() {
-		return this.nom;
+		return nom;
 	}
 
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
 
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getCin() {
+		return cin;
+	}
+
+	public void setCin(String cin) {
+		this.cin = cin;
+	}
+
+	public String getDateNaiss() {
+		return dateNaiss;
+	}
+
+	public void setDateNaiss(String dateNaiss) {
+		this.dateNaiss = dateNaiss;
+	}
+
+	public String getLieuNaiss() {
+		return lieuNaiss;
+	}
+
+	public void setLieuNaiss(String lieuNaiss) {
+		this.lieuNaiss = lieuNaiss;
+	}
+
+	public String getDateAdhesion() {
+		return dateAdhesion;
+	}
+
+	public void setDateAdhesion(String dateAdhesion) {
+		this.dateAdhesion = dateAdhesion;
+	}
+
 	public int getNumeroVote() {
-		return this.numeroVote;
+		return numeroVote;
 	}
 
 	public void setNumeroVote(int numeroVote) {
@@ -182,45 +192,23 @@ public class Contact implements Serializable {
 	}
 
 	public String getPhoto() {
-		return this.photo;
+		return photo;
 	}
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
-	public String getPrenom() {
-		return this.prenom;
-	}
-
-	public void setPrenom(String prenom) {
-		this.prenom = prenom;
-	}
-
 	public List<Action> getActions() {
-		return this.actions;
+		return actions;
 	}
 
 	public void setActions(List<Action> actions) {
 		this.actions = actions;
 	}
 
-	public Action addAction(Action action) {
-		getActions().add(action);
-		action.setContact(this);
-
-		return action;
-	}
-
-	public Action removeAction(Action action) {
-		getActions().remove(action);
-		action.setContact(null);
-
-		return action;
-	}
-
 	public Typecontact getTypecontact() {
-		return this.typecontact;
+		return typecontact;
 	}
 
 	public void setTypecontact(Typecontact typecontact) {
@@ -228,7 +216,7 @@ public class Contact implements Serializable {
 	}
 
 	public Fonction getFonction() {
-		return this.fonction;
+		return fonction;
 	}
 
 	public void setFonction(Fonction fonction) {
@@ -236,7 +224,7 @@ public class Contact implements Serializable {
 	}
 
 	public Categoirecontact getCategoirecontact() {
-		return this.categoirecontact;
+		return categoirecontact;
 	}
 
 	public void setCategoirecontact(Categoirecontact categoirecontact) {
@@ -244,7 +232,7 @@ public class Contact implements Serializable {
 	}
 
 	public Profession getProfession() {
-		return this.profession;
+		return profession;
 	}
 
 	public void setProfession(Profession profession) {
@@ -252,7 +240,7 @@ public class Contact implements Serializable {
 	}
 
 	public List<Adresse> getAdresses() {
-		return this.adresses;
+		return adresses;
 	}
 
 	public void setAdresses(List<Adresse> adresses) {
@@ -260,29 +248,15 @@ public class Contact implements Serializable {
 	}
 
 	public List<Historique> getHistoriques() {
-		return this.historiques;
+		return historiques;
 	}
 
 	public void setHistoriques(List<Historique> historiques) {
 		this.historiques = historiques;
 	}
 
-	public Historique addHistorique(Historique historique) {
-		getHistoriques().add(historique);
-		historique.setContact(this);
-
-		return historique;
-	}
-
-	public Historique removeHistorique(Historique historique) {
-		getHistoriques().remove(historique);
-		historique.setContact(null);
-
-		return historique;
-	}
-
 	public List<Telephone> getTelephones() {
-		return this.telephones;
+		return telephones;
 	}
 
 	public void setTelephones(List<Telephone> telephones) {

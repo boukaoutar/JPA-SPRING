@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Ligneadherent implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id_ligneAder;
 
 	private byte role;
