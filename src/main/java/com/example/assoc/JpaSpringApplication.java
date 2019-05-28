@@ -61,7 +61,7 @@ public class JpaSpringApplication implements CommandLineRunner{
 			for(int i=0;i<lc.size();i++ )
 				System.out.print(lc.get(i).getNom().toString());
 		}*/
-		contact.save(new Contact("Driss","Oujdi","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
+	//	contact.save(new Contact("Driss","Oujdi","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
 		System.out.println("chi 7ajaaaaaaaaa");
 //		List<Contact> lc = contact.findAll();
 //		
