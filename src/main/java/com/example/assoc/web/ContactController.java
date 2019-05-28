@@ -1,16 +1,12 @@
 package com.example.assoc.web;
 
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 
+import javax.validation.Valid;
 
 import java.util.List;
 

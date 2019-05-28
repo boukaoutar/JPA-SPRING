@@ -95,7 +95,8 @@ public class ParametreController {
 		  System.out.println("ID orga  "+idorga);
 		  Organisme organisme=organismerepo.findById(Integer.parseInt(idorga)).get();
 		  Typeorganisme typeOrga=typeorganismerepo.findById(Integer.parseInt(typeassoc)).get();
-		  organisme.setNom(firstname2);
+		  
+		  organisme.setNom_association(firstname2);
 		  organisme.setAdresse(adresse);
 		  organisme.setVille(ville);
 		  organisme.setTypeorganisme(typeOrga);
