@@ -14,8 +14,6 @@ import com.example.assoc.entities.Personne;
 
 public interface ContactRepository  extends JpaRepository<Contact, Integer>{
 	
-	//@Query("select * from contact  where nom = 'n'")
-	//public List<Contact> FindByName(@Param("n")String nom);
 	
 	@Query("select c.idOrganisme from Contact c where c.email =:x")
 	public List<Organisme> findorganismeByemail(@Param("x")String email);
