@@ -2,6 +2,7 @@ package com.example.assoc.web;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,11 +22,21 @@ import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Organisme;
 
+
+
 @Controller
 public class ContactController {
-	
+
 	@Autowired
 	ContactRepository contactrepository;
+
+
+	@RequestMapping("/index.html")
+	public String index()
+	{
+		return "index";
+	}
+
 	
 	@RequestMapping(value = {"/login"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String login (Model model)
@@ -34,6 +45,7 @@ public class ContactController {
 			return "login";
 	}
 	
+
 	@RequestMapping(value = {"/typelogin"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String typelogin (@Valid Contact contact,BindingResult bindingresult,Model model,HttpSession httpsession)
 	{

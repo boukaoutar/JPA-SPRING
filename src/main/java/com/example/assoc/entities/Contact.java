@@ -2,10 +2,12 @@ package com.example.assoc.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
 
 import org.hibernate.id.IntegralDataTypeHolder;
 
@@ -44,6 +46,7 @@ public class Contact implements Serializable {
 	@NotEmpty
 	private String email;
 	
+
 	@NotEmpty
 	private String password;
 	
