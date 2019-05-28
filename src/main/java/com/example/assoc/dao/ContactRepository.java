@@ -10,8 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.assoc.entities.Contact;
 
-public interface ContactRepository  extends JpaRepository<Contact, Integer>{
+public interface ContactRepository  extends JpaRepository<Contact, Integer>, ContactRepositoryCustom{
 	
-	//@Query("select * from contact  where nom = 'n'")
-	//public List<Contact> FindByName(@Param("n")String nom);
+	//@Query("select p from contact p where p.nom = 'n'")
+	//public List<Contact> FindByEmailandID(@Param("n")String  email);
 }
+

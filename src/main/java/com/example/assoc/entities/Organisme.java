@@ -21,7 +21,7 @@ public class Organisme implements Serializable {
 	@Lob
 	private String adresse;
 	
-	@Column(name="nom_association",length=50,unique=true)
+	@Column(name="nom_association",length=50,unique=false)
 	private String nom_association;
 
 	private String ville;
