@@ -2,8 +2,6 @@ package com.example.assoc;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -29,9 +27,8 @@ import net.bytebuddy.dynamic.Nexus;
 @SpringBootApplication
 public class JpaSpringApplication implements CommandLineRunner{
 	
-    @Autowired
+	@Autowired
 	private ContactRepository contact;
-    
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JpaSpringApplication.class, args);
@@ -52,8 +49,8 @@ public class JpaSpringApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		//contact.save(new Contact("jb525214","25/25/2200","20/01/2001","hicham@gmail.com","agadir","dandan",1,"cc.jpg","hicham"));
 		
-		//contact.save(new Contact("rachid","zaariou","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
-		/*contact.save(new Contact("hassan","diiri","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
+		/*contact.save(new Contact("rachid","zaariou","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
+		contact.save(new Contact("hassan","diiri","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
 		contact.save(new Contact("brahim","safir","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));*/
 		
 		/*List<Contact> lc = contact.FindByName("rachid");
@@ -63,7 +60,6 @@ public class JpaSpringApplication implements CommandLineRunner{
 		}*/
 		//contact.save(new Contact("Driss","Oujdi","rachidzaariou@gmail.com","password123","JH3322","25/25/2200","agadir","25/25/2300",2,"ccc.jpeg"));
 		System.out.println("chi 7ajaaaaaaaaa");
-
 //		List<Contact> lc = contact.findAll();
 //		
 //		if(lc.size()!=0) {
