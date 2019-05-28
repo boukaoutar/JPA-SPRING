@@ -25,6 +25,10 @@ public class Typeorganisme implements Serializable {
 	//bi-directional many-to-one association to Organisme
 	@OneToMany(mappedBy="typeorganisme")
 	private List<Organisme> organismes;
+	
+	public Typeorganisme getThis() {
+		return this;
+	}
 
 	public Typeorganisme() {
 	}

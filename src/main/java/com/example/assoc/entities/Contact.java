@@ -2,10 +2,13 @@ package com.example.assoc.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import javax.validation.constraints.Size;
 
 import org.hibernate.id.IntegralDataTypeHolder;
 
@@ -36,6 +39,8 @@ public class Contact implements Serializable {
 	
 	private String nom;
 	
+	
+
 	private String prenom;
 	
 
@@ -44,6 +49,7 @@ public class Contact implements Serializable {
 	@NotEmpty
 	private String email;
 	
+
 	@NotEmpty
 	private String password;
 	
@@ -115,7 +121,13 @@ public class Contact implements Serializable {
 		this.numeroVote = numeroVote;
 		this.photo = photo;
 	}
-	
+	public Organisme getIdOrganisme() {
+		return idOrganisme;
+	}
+
+	public void setIdOrganisme(Organisme idOrganisme) {
+		this.idOrganisme = idOrganisme;
+	}
 	
 	public String getNom() {
 		return nom;
