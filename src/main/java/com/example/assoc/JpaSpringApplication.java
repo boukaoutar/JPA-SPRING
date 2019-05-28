@@ -26,8 +26,7 @@ public class JpaSpringApplication implements CommandLineRunner{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JpaSpringApplication.class, args);
-		HttpServletRequest httpservlet = null ;
-		httpservlet.getSession().setAttribute("contact", "contact");
+
 		//contact.save(new Contact());
 		System.out.println("chi haja");
 		//List<Personne> personnes = personneDAO.findByCle("%dan%");

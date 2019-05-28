@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8"/>
+<!-- <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+        rel="stylesheet"> -->
+         
+         <link rel="stylesheet" type="text/css" href="../static/bower_components/bootstrap/dist/css/bootstrap.min.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"> 
+         <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+          <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+<title>page1</title>
+</head>
+<body>
+<header>
+<div class="navbar navbar-default">
+  
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li >
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li >
+        <a  href="#">Features</a>
+      </li>
+      <li >
+        <a href="#">Pricing</a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+</header>
+
+<!-- <h4>First page </h4>
+<form th:action="@{/second}" method="get">
+<div>
+<label for="name">Code :</label>
+
+<input type="text"   name="code" >
+<button type="submit" class="btn btn-primary">search</button>
+
+       </div>
+       </form>
+<div th:if="${personne}">
+<div><label >Your First Name</label>
+<label th:text="${personne.getNom()}"></label></div>
+<div><label >Your Last Name :</label>
+<label th:text="${personne.getPrenom()}"></label></div>
+</div> -->
+<div layout:fragment="content">
+<div class="col-md-8" th:if="${actionE}">
+<div class="panel panel-success">
+
+    <div class="panel-heading">Edite action</div>
+  <div class="panel-body">
+<form th:action="@{/ActUpdate}" method="post">
+ 
+    <div class="form-group">
+      <label for="UNom">Nom</label>
+      <input type="text" class="form-control" id="UNom" name="UNom" th:value="${actionE.getNom()}" placeholder="Nom de l'evenement">
+    </div>
+    <div class="form-group">
+    <label for="UObjectif">Objectif</label>
+    <textarea class="form-control" id="UObjectif" th:text="${actionE.getObjectif()}"  name="UObjectif"></textarea>
+    <!-- th:text="${action.getObjectif()}" -->
+  </div>
+  <div class="form-row">
+    <div class="col-md-4 mb-3" >
+  <label for="UQuartier">Quartier</label>
+  <select class="form-control" id="UQuartier" name="UQuartier" >
+   <option th:text="${actionE.getQuartier().getNom()}" th:value="${actionE.getQuartier().getIdQuartier()}"></option>
+    <option th:if="${q.getNom()!=actionE.getQuartier().getNom()}" th:each="q : ${quartiers}"  th:value="${q.getIdQuartier()}" th:text="${q.getNom()}"></option>
+  <!--<option th:text="${q.getNom()}"></option>
+   <select class="form-control" id="seletQuartier" name="seletQuartier">
+  <option>Quartier 1</option>
+  <option>Quartier 2</option> -->
+</select>
+</div>
+<div class="col-md-4 mb-3">
+<label for="UProjet">Projet</label>
+  <select class="form-control" id="UProjet" name="UProjet" >
+  <option th:text="${actionE.getProjet().getNom()}" th:value="${actionE.getProjet().getIdProjet()}"></option>
+    <option th:if="${p.getNom()!=actionE.getProjet().getNom()}" th:each="p : ${projets}"  th:value="${p.getIdProjet()}" th:text="${p.getNom()}"></option>
+  <!-- <option>projet 1</option>
+  <option>projet 2</option> -->
+</select>
+</div>
+<div class="col-md-4 mb-3">
+<label for="UTypeAction">Type action</label>
+  <select class="form-control" id="UTypeAction" name="UTypeAction">
+  
+  <option th:text="${actionE.getTypeaction().getNom()}" th:value="${actionE.getTypeaction().getId_typeAction()}"></option>
+    <option th:each="t : ${typesAct}" th:if="${t.getNom()!=actionE.getTypeaction().getNom()}"   th:value="${t.getId_typeAction()}" th:text="${t.getNom()}"></option>
+</select>
+</div>
+</div>
+<div class="form-row">
+    <div class="col-md-4 mb-3">
+<label for="seletSituation">Situation</label>
+  <select class="form-control" id="seletSituation" name="seletSituation">
+  <option>situation 1</option>
+  <option>situation 2</option>
+</select>
+</div>
+
+
+    <div class="col-md-4 mb-3">
+      <label for="inputImpact">Impact</label>
+      <input type="number" class="form-control" id="inputImpact" name="UImpact" th:value="${actionE.getImpact()}" placeholder="1" min="0" max="5">
+    </div>
+  <div class="col-md-4 mb-3">
+      <label for="inputBudget">Budget</label>
+      <input type="number" class="form-control" id="inputBudget" name="UBudget" th:value="${actionE.getBudget()}" placeholder="1111" min="0" >
+    </div>
+    </div>
+    <div class="form-row">
+    <div class="col-md-3 mb-3">
+<label for="UProjet">Projet</label>
+  <select class="form-control" id="UProjetp" name="UProjetp" >
+  <option th:text="${actionE.getProjet().getNom()}" th:value="${actionE.getProjet().getIdProjet()}"></option>
+    <option th:if="${p.getNom()!=actionE.getProjet().getNom()}" th:each="p : ${projets}"  th:value="${p.getIdProjet()}" th:text="${p.getNom()}"></option>
+  <!-- <option>projet 1</option>
+  <option>projet 2</option> -->
+</select>
+</div>
+  <div class="col-md-3 mb-3">
+     <label for="seletCible">Situation</label>
+  <select class="form-control" id="seletCible" name="seletCible">
+  <option>Cible 1</option>
+  <option>Cible 2</option>
+</select>
+    </div>
+  <div class="form-group col-md-6">
+    <label for="inputDateR">Date Realisation</label>
+    <input type="text" class="form-control" id="inputDateR" name="inputDateR" placeholder="00/00/0000">
+  </div>
+  </div>
+  
+  <div class="form-row">
+  <button type="submit" name="UpdateId" class="btn btn-primary" th:value="${actionE.getIdAction()}">Send</button>
+  </div>
+</form>
+ </div>
+</div>
+</div>
+<!-- 
+<div class="col-md-6" th:if="${actions}">
+<div class="panel panel-info">
+
+    <div class="panel-heading">Liste of Contacts</div>
+  <div class="panel-body">
+<table class="table">
+  <thead>
+    <tr>
+      <th >Nom</th>
+      <th >Objectif</th>
+      <th >Budget</th>
+      <th >Impact</th>
+      <th ></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="action : ${actions}">
+      <td th:text="${action.getNom()}" ></td>
+      <td th:text="${action.getObjectif()}"></td>
+     <td th:text="${action.getBudget()}"></td>
+      <td th:text="${action.getImpact()}"></td>
+      <td><button type="button" class="btn btn-light" name="updateAction">Update</button></td>
+      
+    </tr>
+    
+  </tbody>
+</table>
+</div>
+</div>
+</div>-->
+</div> 
+
+</body>
+</html>
