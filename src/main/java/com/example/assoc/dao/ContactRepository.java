@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.assoc.entities.Contact;
+import com.example.assoc.entities.Organisme;
 
 public interface ContactRepository  extends JpaRepository<Contact, Integer>{
 	

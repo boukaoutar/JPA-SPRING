@@ -30,6 +30,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.example.assoc.dao.ContactRepository;
+import com.example.assoc.dao.OrganismeRepository;
+import com.example.assoc.dao.TypeorganismeRepository;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Organisme;
 
@@ -157,11 +159,7 @@ public class ContactController {
 	}
 	
 	
-	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String index(HttpSession httpsession)
-	{
-		return "index";
-	}
+
 	
 	@RequestMapping("/form.html")
 	public String form()
