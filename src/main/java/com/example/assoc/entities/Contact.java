@@ -2,7 +2,6 @@ package com.example.assoc.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
 import org.hibernate.id.IntegralDataTypeHolder;
 
@@ -33,13 +32,10 @@ public class Contact implements Serializable {
 	
 	private String nom;
 	
-	
-
 	private String prenom;
 	
 	@Column(name="email",length=50)
 	private String email;
-	
 	
 	private String password;
 	
@@ -111,13 +107,7 @@ public class Contact implements Serializable {
 		this.numeroVote = numeroVote;
 		this.photo = photo;
 	}
-	public Organisme getIdOrganisme() {
-		return idOrganisme;
-	}
-
-	public void setIdOrganisme(Organisme idOrganisme) {
-		this.idOrganisme = idOrganisme;
-	}
+	
 	
 	public String getNom() {
 		return nom;
