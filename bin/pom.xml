@@ -31,6 +31,24 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency> 
+    <groupId>org.springframework</groupId> 
+    <artifactId>spring-webmvc</artifactId> 
+    <version>${spring.version}</version> 
+</dependency> 
 
 		<dependency>
 			<groupId>mysql</groupId>
@@ -55,6 +73,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			
 		</plugins>
 	</build>
 
