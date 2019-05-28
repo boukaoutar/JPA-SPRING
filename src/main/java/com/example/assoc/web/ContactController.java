@@ -7,11 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 public class ContactController {
 
-	@RequestMapping("/index.html")
-	public String index()
-	{
-		return "index";
-	}
+	
 	
 	@RequestMapping("/form.html")
 	public String form()
@@ -67,9 +63,11 @@ public class ContactController {
 		return "fixed_sidebar";
 	}
 	
-	@RequestMapping("/fixed_footer.html")
+	@RequestMapping("/chartjs.html")
 	public String fixedF()
 	{
-		return "fixed_footer";
+		return "chartjs";
 	}
+	
+	
 }

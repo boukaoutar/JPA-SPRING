@@ -2,6 +2,8 @@ package com.example.assoc;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,16 +26,20 @@ public class JpaSpringApplication implements CommandLineRunner{
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JpaSpringApplication.class, args);
+		HttpServletRequest httpservlet = null ;
+		httpservlet.getSession().setAttribute("contact", "contact");
 		//contact.save(new Contact());
-		
+		System.out.println("chi haja");
 		//List<Personne> personnes = personneDAO.findByCle("%dan%");
+		
 		
 		
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-		contact.save(new Contact("jb525214","25/25/2200","20/01/2001","hicham@gmail.com","agadir","dandan",1,"cc.jpg","hicham"));		
+		
+		//contact.save(new Contact("jb525214","25/25/2200","20/01/2001","hicham@gmail.com","agadir","dandan",1,"cc.jpg","hicham"));		
 	}
 
 }
