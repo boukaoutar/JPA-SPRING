@@ -1,11 +1,40 @@
 package com.example.assoc.web;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.assoc.dao.ContactRepository;
+import com.example.assoc.dao.OrganismeRepository;
+import com.example.assoc.dao.TypecontactRepository;
+import com.example.assoc.dao.TypeorganismeRepository;
+import com.example.assoc.entities.Contact;
+import com.example.assoc.entities.Organisme;
+import com.example.assoc.entities.Typecontact;
+import com.example.assoc.entities.Typeorganisme;
 
 @Controller
 
 public class ContactController {
+	
+	@Autowired
+	ContactRepository contactRepository;
+	@Autowired
+	OrganismeRepository organismeRepository;
+	@Autowired
+	TypeorganismeRepository typeorganismeRepository;
+	@Autowired
+	TypecontactRepository typecontactRepository;
 
 	@RequestMapping("/index.html")
 	public String index()
@@ -19,12 +48,18 @@ public class ContactController {
 		return "form";
 	}
 	
-	@RequestMapping("/signup.html")
-	public String signup()
+	
+	@RequestMapping(value="/signupp",method=RequestMethod.GET)
+	public String signup(Model model)
 	{
-		return "signup";
+		model.addAttribute("contact", new Contact());
+		model.addAttribute("organisme", new Organisme());
+		
+		List<Typeorganisme> types = typeorganismeRepository.findAll();
+		model.addAttribute("typeorganisme", types);
+		
+		return "signupp";
 	}
-<<<<<<< HEAD
 	//@RequestMapping(value="/SaveNewUser",method=RequestMethod.POST)
 	@RequestMapping("/SaveNewUser")
 	public String NewUser(Contact c , Organisme o,@RequestParam("id_type_organism") String id,Model model, BindingResult result)
@@ -36,7 +71,6 @@ public class ContactController {
 		
 		if(c.getNom().matches("[a-zA-Z]+")==true) {
 			
-			//changement
 			if(c.getPrenom().matches("[a-zA-Z]+")==true) {
 				if(contactRepository.FindByEmail(c.getEmail())==false) {
 					Typeorganisme to = typeorganismeRepository.FindByid(Integer.parseInt(id));
@@ -71,8 +105,6 @@ public class ContactController {
 	}
 	
 	
-=======
->>>>>>> parent of 8e86895... sign up
 
 	@RequestMapping("/form_advanced.html")
 	public String formAD()
