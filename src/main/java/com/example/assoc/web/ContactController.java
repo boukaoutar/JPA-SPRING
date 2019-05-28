@@ -3,6 +3,7 @@ package com.example.assoc.web;
 
 
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,13 +11,23 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.entities.Contact;
@@ -27,12 +38,20 @@ import com.example.assoc.entities.Organisme;
 @Controller
 public class ContactController {
 
+	
+	@Autowired
+	ContactRepository contactRepository;
+	@Autowired
+	OrganismeRepository organismeRepository;
+	@Autowired
+	TypeorganismeRepository typeorganismeRepository;
 	@Autowired
 	ContactRepository contactrepository;
 
 
 	@RequestMapping("/index.html")
 	public String index()
+
 	{
 		return "index";
 	}
@@ -141,12 +160,7 @@ public class ContactController {
 	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String index(HttpSession httpsession)
 	{
-		if(httpsession.getAttribute("contact") == null)
-		{
-			return "redirect:login";
-		}
 		return "index";
-		
 	}
 	
 	@RequestMapping("/form.html")
