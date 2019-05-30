@@ -23,7 +23,7 @@ public interface ContactRepository  extends JpaRepository<Contact, Integer>{
 	public Contact Connecting(@Param("x")String email,@Param("y")String organisme,@Param("z")String password);
 
 
-	@Query("select p from contact p where p.nom = 'n'")
-	public List<Contact> FindByEmailandID(@Param("n")String  email);
+/*	@Query("select p from contact p where p.nom = 'n'")
+	public List<Contact> FindByEmailandID(@Param("n")String  email);*/
 
 }

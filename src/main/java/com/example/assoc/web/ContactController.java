@@ -41,17 +41,24 @@ import com.example.assoc.entities.Organisme;
 public class ContactController {
 
 	
-	@Autowired
+/*	@Autowired
 	ContactRepository contactRepository;
 	@Autowired
 	OrganismeRepository organismeRepository;
 	@Autowired
-	TypeorganismeRepository typeorganismeRepository;
+	TypeorganismeRepository typeorganismeRepository;*/
 	@Autowired
 	ContactRepository contactrepository;
 
 
-	@RequestMapping("/index.html")
+	/*@RequestMapping("/dashboard")
+	public String dashboard()
+
+	{
+		return "dashboard";
+	}*/
+	
+	@RequestMapping("/index")
 	public String index()
 
 	{
