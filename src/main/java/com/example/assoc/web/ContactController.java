@@ -2,8 +2,6 @@ package com.example.assoc.web;
 
 
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,60 +9,23 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import com.example.assoc.dao.ContactRepository;
-import com.example.assoc.dao.OrganismeRepository;
-import com.example.assoc.dao.TypeorganismeRepository;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Organisme;
 
-
-
 @Controller
 public class ContactController {
-
 	
-/*	@Autowired
-	ContactRepository contactRepository;
-	@Autowired
-	OrganismeRepository organismeRepository;
-	@Autowired
-	TypeorganismeRepository typeorganismeRepository;*/
 	@Autowired
 	ContactRepository contactrepository;
-
-
-	/*@RequestMapping("/dashboard")
-	public String dashboard()
-
-	{
-		return "dashboard";
-	}*/
-	
-	@RequestMapping("/index")
-	public String index()
-
-	{
-		return "index";
-	}
-
 	
 	@RequestMapping(value = {"/login"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String login (Model model)
@@ -73,7 +34,6 @@ public class ContactController {
 			return "login";
 	}
 	
-
 	@RequestMapping(value = {"/typelogin"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String typelogin (@Valid Contact contact,BindingResult bindingresult,Model model,HttpSession httpsession)
 	{
@@ -166,7 +126,49 @@ public class ContactController {
 	}
 	
 	
-
+	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String index(HttpSession httpsession)
+	{
+		if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}
+		return "index";
+		
+	}
+	
+	@RequestMapping(value = {"/layout"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String dashboard(HttpSession httpsession,Model model)
+	{
+		/*if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}*/
+		model.addAttribute("active1","nav-item  active");
+		model.addAttribute("active2","nav-item  ");
+		model.addAttribute("active3","nav-item  ");
+		model.addAttribute("layout","layout");
+		model.addAttribute("dashboard","layout1");
+		return "dashboard";
+		
+	}
+	
+	@RequestMapping(value = {"/userprofile"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String userprofile(HttpSession httpsession,Model model)
+	{
+		/*if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}*/
+		model.addAttribute("active1","nav-item  ");
+		model.addAttribute("active2","nav-item  active");
+		model.addAttribute("active3","nav-item  ");
+		model.addAttribute("layout","UserProfile");
+		model.addAttribute("dashboard","userprofile");
+		return "dashboard";
+		
+	}
+	
 	
 	@RequestMapping("/form.html")
 	public String form()
