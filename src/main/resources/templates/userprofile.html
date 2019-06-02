@@ -1,0 +1,115 @@
+    <div th:fragment = "userprofile" xmlns:th="http://www.thymeleaf.org">
+       <meta charset="UTF-8"/> 
+             <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-11">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Modifier Profile</h4>
+                  <p class="card-category">Completer votre profile</p>
+                </div>
+                <div class="card-body" th:object="${contact}">
+                    <form th:action="@{/updateprofile}" >
+                    <div class="row">
+                      <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Organisme (disabled)</label>
+                          <input type="text" th:field="*{idOrganisme.nom_association}" class="form-control" disabled>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Email address</label>
+                          <input type="email" th:field="*{email}" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                          <input type="text" th:field="*{password}" class="form-control">
+                          
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Nom</label>
+                          <input type="text" th:field="*{nom}" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Prenom</label>
+                          <input type="text" th:field="*{prenom}" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Lieu de naissance</label>
+                          <input type="text" th:field="*{lieuNaiss}" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">date naissance</label>
+                          <input type="text" th:field="*{dateNaiss}" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">date adhésion</label>
+                          <input type="text" th:field="*{dateAdhesion}" class="form-control">
+                        </div>
+                      </div>
+                    <div class="col-md-4">
+                       <div class="form-group">
+                         <label class="bmd-label-floating">CIN</label>
+                         <input type="text" th:field="*{cin}" class="form-control">
+                       </div>
+                     </div> 
+                    </div>
+                 <!--   <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label>About Me</label>
+                          <div class="form-group">
+                            <label class="bmd-label-floating"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
+                            <textarea class="form-control" rows="5"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="clearfix"></div>
+                </form>
+                </div>
+              </div>
+            </div>
+      <!--       <div class="col-md-4">
+              <div class="card card-profile">
+                <div class="card-avatar">
+                  <a href="#pablo">
+                    <img class="img" src="../assets/img/faces/marc.jpg" />
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                  <h4 class="card-title">Alec Thompson</h4>
+                  <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens' bed design but the back is...
+                  </p>
+                  <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+                </div>
+              </div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      	
+      </div>

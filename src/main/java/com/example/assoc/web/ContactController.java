@@ -10,6 +10,11 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,8 +44,9 @@ public class ContactController {
 	{
 
 			if(contact.getEmail() == null) return "redirect:login";
+			
 			List<Organisme> ls = contactrepository.findorganismeByemail(contact.getEmail());
-
+			System.out.println("List Size xxxxxxx : "+ls.size()+" email : "+contact.getEmail());
 		
 			if(bindingresult.hasErrors())
 			{
@@ -119,12 +125,23 @@ public class ContactController {
 			System.out.println("contact cin : "+c.getCin()+"  contact name : "+c.getNom()+" Type contact : "+c.getTypecontact().getNom());
 			httpsession.setAttribute("contact", c);
 			//httpsession.invalidate();
-
-			return "redirect:index";
+			if(c.getTypecontact().getNom().equals("admin"))
+				return "redirect:index";
+			else
+				return "redirect:communaute";
+				
+				
 		
 		
 	}
 	
+	@RequestMapping(value = {"/logout"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String logout(HttpSession httpsession)
+	{
+		httpsession.invalidate();
+		return "redirect:login";
+		
+	}
 	
 	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String index(HttpSession httpsession)
@@ -137,18 +154,36 @@ public class ContactController {
 		
 	}
 	
-	@RequestMapping(value = {"/layout"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String dashboard(HttpSession httpsession,Model model)
+	@RequestMapping(value = {"/communaute"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String communaute(HttpSession httpsession,Model model
+			,@RequestParam(name="page",defaultValue="0") int p,@RequestParam(name="size",defaultValue="9") int s)
 	{
-		/*if(httpsession.getAttribute("contact") == null)
+		if(httpsession.getAttribute("contact") == null)
 		{
 			return "redirect:login";
-		}*/
+		}
+		Contact c = (Contact) httpsession.getAttribute("contact");
+	
+		
+		Page<Contact> contactsCommunaute = contactrepository.findContactsByorganisme(c.getIdOrganisme().getIdOrganisme(),new PageRequest(p,s));
+		model.addAttribute("contactsCommunaute",contactsCommunaute.getContent());
+		int[] pages = new int[contactsCommunaute.getTotalPages()];
+		model.addAttribute("pages",pages);
+		model.addAttribute("size",pages.length-1);
+		model.addAttribute("pageCourant",p);
+		/////////////////////////////////////////////
 		model.addAttribute("active1","nav-item  active");
 		model.addAttribute("active2","nav-item  ");
 		model.addAttribute("active3","nav-item  ");
-		model.addAttribute("layout","layout");
-		model.addAttribute("dashboard","layout1");
+		/////////////////////////////////////////////
+		model.addAttribute("colorcommunaute","nav-link bg-success");
+		model.addAttribute("colorprofile","nav-link");
+		model.addAttribute("coloraction","nav-link"); 
+		
+		
+		model.addAttribute("dashboard","communaute");
+		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
+		
 		return "dashboard";
 		
 	}
@@ -156,83 +191,69 @@ public class ContactController {
 	@RequestMapping(value = {"/userprofile"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String userprofile(HttpSession httpsession,Model model)
 	{
-		/*if(httpsession.getAttribute("contact") == null)
+		if(httpsession.getAttribute("contact") == null)
 		{
 			return "redirect:login";
-		}*/
+		}
+
 		model.addAttribute("active1","nav-item  ");
 		model.addAttribute("active2","nav-item  active");
 		model.addAttribute("active3","nav-item  ");
-		model.addAttribute("layout","UserProfile");
+		//////////////////////
+		model.addAttribute("colorcommunaute","nav-link");
+		model.addAttribute("colorprofile","nav-link ");
+		model.addAttribute("coloraction","nav-link"); 
+		
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		model.addAttribute("contact",c);
+		
 		model.addAttribute("dashboard","userprofile");
+		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
 		return "dashboard";
 		
 	}
 	
-	
-	@RequestMapping("/form.html")
-	public String form()
+	@RequestMapping(value = {"/action"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String action(HttpSession httpsession,Model model)
 	{
-		return "form";
+		if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}
+		model.addAttribute("active1","nav-item  ");
+		model.addAttribute("active2","nav-item  ");
+		model.addAttribute("active3","nav-item  active");
+		////////////////////////////////////////////
+		model.addAttribute("colorcommunaute","nav-link");
+		model.addAttribute("colorprofile","nav-link");
+		model.addAttribute("coloraction","nav-link bg-info"); 
+		
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		model.addAttribute("dashboard","action");
+		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
+		return "dashboard";
+		
 	}
 	
-	@RequestMapping("/signup.html")
-	public String signup()
+	@RequestMapping(value = {"/updateprofile"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String updateprofile(@Valid Contact contact,HttpSession httpsession,Model model)
 	{
-		return "signup";
+		if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}
+		Contact c = (Contact) httpsession.getAttribute("contact");
+	
+		
+		contact.setIdContact(c.getIdContact());
+		contact.setIdOrganisme(c.getIdOrganisme());
+		contact.setTypecontact(c.getTypecontact());
+		
+		contactrepository.save(contact);
+		httpsession.setAttribute("contact",contact);
+		return "redirect:userprofile";
+		
 	}
+	
 
-	@RequestMapping("/form_advanced.html")
-	public String formAD()
-	{
-		return "form_advanced";
-	}
-	
-	@RequestMapping("/form_validation.html")
-	public String formVLD()
-	{
-		return "form_validation";
-	}
-	
-	@RequestMapping("/form_wizards.html")
-	public String formWIZARDS()
-	{
-		return "form_wizards";
-	}
-	
-	@RequestMapping("/form_upload.html")
-	public String formUPLOAD()
-	{
-		return "form_upload";
-	}
-	
-	@RequestMapping("/form_buttons.html")
-	public String formBUTTONS()
-	{
-		return "form_buttons";
-	}
-	
-	@RequestMapping("/tables.html")
-	public String tables()
-	{
-		return "tables";
-	}
-	
-	@RequestMapping("/tables_dynamic.html")
-	public String tablesD()
-	{
-		return "tables_dynamic";
-	}
-
-	@RequestMapping("/fixed_sidebar.html")
-	public String fixedS()
-	{
-		return "fixed_sidebar";
-	}
-	
-	@RequestMapping("/fixed_footer.html")
-	public String fixedF()
-	{
-		return "fixed_footer";
-	}
 }

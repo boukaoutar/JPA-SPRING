@@ -42,6 +42,14 @@ public class Fonction implements Serializable {
 		return this.nom;
 	}
 
+	public Fonction(Integer idFonction, String nom, String note, List<Contact> contacts) {
+		super();
+		this.idFonction = idFonction;
+		this.nom = nom;
+		this.note = note;
+		this.contacts = contacts;
+	}
+
 	public void setNom(String nom) {
 		this.nom = nom;
 	}

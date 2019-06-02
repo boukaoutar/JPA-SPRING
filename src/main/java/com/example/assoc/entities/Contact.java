@@ -25,11 +25,20 @@ import java.util.List;
 public class Contact implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id_contact")
 	private Integer idContact;
 
 	
+	public Integer getIdContact() {
+		return idContact;
+	}
+
+	public void setIdContact(Integer idContact) {
+		this.idContact = idContact;
+	}
+
 	@ManyToOne
 	@JoinColumn(name="id_organisme")
 	private Organisme idOrganisme;
@@ -55,7 +64,8 @@ public class Contact implements Serializable {
 
 	private String dateAdhesion;
 
-	private int numeroVote;
+	//@Column(nullable = true)
+	private Integer numeroVote;
 
 	@Lob
 	private String photo;
@@ -102,7 +112,7 @@ public class Contact implements Serializable {
 	}
 	
 	public Contact(String nom, String prenom, String email, String password, String cin, String dateNaiss,
-			String lieuNaiss, String dateAdhesion, int numeroVote, String photo) {
+			String lieuNaiss, String dateAdhesion, Integer numeroVote, String photo) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -181,11 +191,11 @@ public class Contact implements Serializable {
 		this.dateAdhesion = dateAdhesion;
 	}
 
-	public int getNumeroVote() {
+	public Integer getNumeroVote() {
 		return numeroVote;
 	}
 
-	public void setNumeroVote(int numeroVote) {
+	public void setNumeroVote(Integer numeroVote) {
 		this.numeroVote = numeroVote;
 	}
 
@@ -259,6 +269,14 @@ public class Contact implements Serializable {
 
 	public void setTelephones(List<Telephone> telephones) {
 		this.telephones = telephones;
+	}
+
+	public Organisme getIdOrganisme() {
+		return idOrganisme;
+	}
+
+	public void setIdOrganisme(Organisme idOrganisme) {
+		this.idOrganisme = idOrganisme;
 	}
 
 	public Telephone addTelephone(Telephone telephone) {
