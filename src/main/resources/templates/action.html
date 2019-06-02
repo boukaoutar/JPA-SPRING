@@ -21,13 +21,34 @@
                       <th>Média</th>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>nom_Projet</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
-                        <td>Niger</td>
-                        <td>Dakota Rice</td>
-                        <td>$36,738</td>
+                      <tr th:each="action: ${actions}">
+                        <td>
+                         <div th:if="${action.getProjet() != null}" th:text="${action.getProjet().getNom()}"></div> 
+                       	 <div th:unless="${action.getProjet() != null}" th:text="----------------"></div> 
+						</td>
+                        <td>
+                           <div th:if="${action.getContact() != null}" th:text="${action.getContact().getEmail()}"></div> 
+                       	 <div th:unless="${action.getContact() != null}" th:text="----------------"></div> 
+						
+                        </td>
+                        <td>
+                         <div th:if="${action.getDateCreation() != null}" th:text="${action.getDateCreation()}"></div> 
+                       	 <div th:unless="${action.getDateCreation() != null}" th:text="----------------"></div> 
+                        </td>
+                        <td>
+                         <div th:if="${action.getDateRealisation() != null}" th:text="${action.getDateRealisation()}"></div> 
+                       	 <div th:unless="${action.getDateRealisation() != null}" th:text="----------------"></div> 
+						
+                        </td>
+                        <td>
+                         <div th:if="${action.getBudget() != null}" th:text="${action.getBudget()}"></div> 
+                       	 <div th:unless="${action.getBudget() != null}" th:text="----------------"></div> 
+                        </td>
+                        <td>
+                        
+                        <a class="material-icons" style="color:#000000" th:href="@{communaute}">perm_media</a>
+                        
+                        </td>
                       </tr>
                     </tbody>
                   </table>
@@ -38,4 +59,17 @@
           </div>
       </div>
       	</form>
+      	
+      	<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center" >
+    <li th:class=" ${pageCourant} == '0'?'page-item disabled':'page-item'">
+    <a class="page-link" th:href="@{communaute(page=${pageCourant}-1)}" >Previous</a>
+    </li>
+    <li th:class=" ${pageCourant} == ${status.index}?'page-item active':'page-item'" th:each="pa,status:${pages}"><a class="page-link" th:href="@{communaute(page=${status.index},size=${size})}" th:text="${status.index}"></a></li>
+    <li th:class=" ${pageCourant} == ${size}?'page-item disabled':'page-item'" >
+     <a class="page-link"  th:href="@{communaute(page=${pageCourant}+1)}">Next</a> 
+    </li>
+  </ul>
+</nav>
+      	
       </div>

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.assoc.dao.ContactRepository;
+import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Organisme;
 
@@ -156,7 +157,7 @@ public class ContactController {
 	
 	@RequestMapping(value = {"/communaute"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String communaute(HttpSession httpsession,Model model
-			,@RequestParam(name="page",defaultValue="0") int p,@RequestParam(name="size",defaultValue="9") int s)
+	,@RequestParam(name="page",defaultValue="0") int p,@RequestParam(name="size",defaultValue="8") int s)
 	{
 		if(httpsession.getAttribute("contact") == null)
 		{
@@ -214,12 +215,24 @@ public class ContactController {
 	}
 	
 	@RequestMapping(value = {"/action"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String action(HttpSession httpsession,Model model)
+	public String action(HttpSession httpsession,Model model
+	,@RequestParam(name="page",defaultValue="0") int p,@RequestParam(name="size",defaultValue="4") int s)
 	{
 		if(httpsession.getAttribute("contact") == null)
 		{
 			return "redirect:login";
 		}
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		
+		Page<Action> actions = contactrepository.findActionsByorganisme(c.getIdOrganisme().getIdOrganisme(),new PageRequest(p,s));
+		System.out.println("list contact xxxxxxx : "+actions.getContent().get(0).getNom());
+		
+		model.addAttribute("actions",actions.getContent());
+		int[] pages = new int[actions.getTotalPages()];
+		model.addAttribute("pages",pages);
+		model.addAttribute("size",pages.length-1);
+		model.addAttribute("pageCourant",p);
+		/////////////////////////////////////////////
 		model.addAttribute("active1","nav-item  ");
 		model.addAttribute("active2","nav-item  ");
 		model.addAttribute("active3","nav-item  active");
@@ -228,7 +241,6 @@ public class ContactController {
 		model.addAttribute("colorprofile","nav-link");
 		model.addAttribute("coloraction","nav-link bg-info"); 
 		
-		Contact c = (Contact) httpsession.getAttribute("contact");
 		model.addAttribute("dashboard","action");
 		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
 		return "dashboard";

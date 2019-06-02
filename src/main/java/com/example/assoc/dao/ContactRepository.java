@@ -27,6 +27,6 @@ public interface ContactRepository  extends JpaRepository<Contact, Integer>{
 	public Page<Contact> findContactsByorganisme(@Param("x")Integer idorganisme, Pageable pageable);
 	
 	@Query("select a from Action a where a.contact.idOrganisme.idOrganisme =:x")
-	public List<Action> findActionsByorganisme(@Param("x")Integer idorganisme);
+	public Page<Action> findActionsByorganisme(@Param("x")Integer idorganisme, Pageable pageable);
 	
 }
