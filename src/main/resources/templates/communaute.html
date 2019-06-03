@@ -1,10 +1,12 @@
-<div th:fragment = "communaute">
+<div th:fragment = "communaute" xmlns:th = "http://www.thymeleaf.org">
         <meta charset="UTF-8"/> 
        <form action="" method = "GET">
         <div class="container-fluid">
           <div class="row">
 
             <div class="col-lg-12 col-md-12">
+            
+                        <div  th:if="${size != -1}" >
               <div class="card">
                 <div class="card-header card-header-success">
                   <h4 class="card-title">Communauté</h4>
@@ -13,14 +15,18 @@
                 <div class="card-body table-responsive">
                   <table class="table table-hover">
                     <thead class="text-success">
-                      
+                      <th></th>
                       <th>Nom</th>
                       <th>Prenom</th>
                       <th>Email</th>
+                       <th>NumTélé</th>
                        <th>Fonction</th>
                     </thead>
                     <tbody>
                       <tr th:each="contact: ${contactsCommunaute}">
+                         <td >
+                            <i class="material-icons" style="color:#FFD700"><div th:if="${contact.getTypecontact().getId_typeCont() == 2}" th:text="grade"></div> </i>
+                         </td>
                         <td >
                              <div th:if="${contact.getNom() != null}" th:text="${contact.getNom()}"></div> 
                        		 <div th:unless="${contact.getNom() != null}" th:text="----------------"></div> 
@@ -32,6 +38,8 @@
                         <td >
                             <div th:if="${contact.getEmail() != null}" th:text="${contact.getEmail()}"></div> 
                        		 <div th:unless="${contact.getEmail() != null}" th:text="----------------"></div> 
+                       </td> 
+                       <td>
                         </td> 
                         <td>
                         <div th:if="${contact.getFonction() != null}" th:text="${contact.getFonction().getNom()}"></div> 
@@ -46,12 +54,18 @@
                 </div>
               </div>
             </div>
+           <div th:unless="${size != -1}" class="text-center" >
+           aucun action
+           </div> 
+          
+          </div>
           </div>
       </div>
       	</form>
       
 
-      	
+      	 <div  th:if="${size != -1}" >
+      	 
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center" >
     <li th:class=" ${pageCourant} == '0'?'page-item disabled':'page-item'">
@@ -63,7 +77,7 @@
     </li>
   </ul>
 </nav>
-      	
+      	 </div> 
       	
        
 </div>

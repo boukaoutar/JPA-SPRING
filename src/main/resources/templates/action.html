@@ -1,16 +1,18 @@
-    <div th:fragment = "action">
+    <div th:fragment = "action" xmlns:th = "http://www.thymeleaf.org">
        <meta charset="UTF-8"/> 
        <form action="" method = "GET">
         <div class="container-fluid">
           <div class="row">
 
             <div class="col-lg-12 col-md-12">
+            <div  th:if="${size != -1}" >
               <div class="card">
                 <div class="card-header card-header-info">
                   <h4 class="card-title">Les Actions</h4>
                   <p class="card-category">Les événement de l'organisme</p>
                 </div>
                 <div class="card-body table-responsive">
+                 
                   <table class="table table-hover">
                     <thead class="text-infouu">
                       <th>Projet</th>
@@ -21,6 +23,7 @@
                       <th>Média</th>
                     </thead>
                     <tbody>
+                   
                       <tr th:each="action: ${actions}">
                         <td>
                          <div th:if="${action.getProjet() != null}" th:text="${action.getProjet().getNom()}"></div> 
@@ -52,14 +55,20 @@
                       </tr>
                     </tbody>
                   </table>
-
+					</div>
                 </div>
               </div>
+              
+            <div th:unless="${size != -1}" class="text-center">
+            aucun action
+            </div> 
             </div>
           </div>
       </div>
       	</form>
-      	
+      
+     <div  th:if="${size != -1}" >
+    	 
       	<nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center" >
     <li th:class=" ${pageCourant} == '0'?'page-item disabled':'page-item'">
@@ -71,5 +80,5 @@
     </li>
   </ul>
 </nav>
-      	
+      </div> 		
       </div>

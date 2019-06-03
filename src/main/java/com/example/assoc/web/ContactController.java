@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -197,6 +198,9 @@ public class ContactController {
 			return "redirect:login";
 		}
 
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		model.addAttribute("contact",c);
+		
 		model.addAttribute("active1","nav-item  ");
 		model.addAttribute("active2","nav-item  active");
 		model.addAttribute("active3","nav-item  ");
@@ -205,8 +209,7 @@ public class ContactController {
 		model.addAttribute("colorprofile","nav-link ");
 		model.addAttribute("coloraction","nav-link"); 
 		
-		Contact c = (Contact) httpsession.getAttribute("contact");
-		model.addAttribute("contact",c);
+
 		
 		model.addAttribute("dashboard","userprofile");
 		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
@@ -225,7 +228,7 @@ public class ContactController {
 		Contact c = (Contact) httpsession.getAttribute("contact");
 		
 		Page<Action> actions = contactrepository.findActionsByorganisme(c.getIdOrganisme().getIdOrganisme(),new PageRequest(p,s));
-		System.out.println("list contact xxxxxxx : "+actions.getContent().get(0).getNom());
+//		System.out.println("list contact xxxxxxx : "+actions.getContent().get(0).getNom());
 		
 		model.addAttribute("actions",actions.getContent());
 		int[] pages = new int[actions.getTotalPages()];
@@ -248,14 +251,31 @@ public class ContactController {
 	}
 	
 	@RequestMapping(value = {"/updateprofile"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String updateprofile(@Valid Contact contact,HttpSession httpsession,Model model)
+	public String updateprofile( @Valid Contact contact,BindingResult bindingresult,HttpSession httpsession,Model model)
 	{
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		if(bindingresult.hasErrors())
+		{	
+		//	System.out.println("Erroor xxxxxxxxxxxxxxx ");
+			//model.addAttribute("contact",c);
+			model.addAttribute("active1","nav-item  ");
+			model.addAttribute("active2","nav-item  active");
+			model.addAttribute("active3","nav-item  ");
+			//////////////////////
+			model.addAttribute("colorcommunaute","nav-link");
+			model.addAttribute("colorprofile","nav-link ");
+			model.addAttribute("coloraction","nav-link"); 
+			
+			model.addAttribute("dashboard","userprofile");
+			model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
+			return "dashboard";
+		}
+		
 		if(httpsession.getAttribute("contact") == null)
 		{
 			return "redirect:login";
 		}
-		Contact c = (Contact) httpsession.getAttribute("contact");
-	
+		
 		
 		contact.setIdContact(c.getIdContact());
 		contact.setIdOrganisme(c.getIdOrganisme());
