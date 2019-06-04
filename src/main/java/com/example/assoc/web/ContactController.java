@@ -25,10 +25,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.dao.FonctionRepository;
+import com.example.assoc.dao.OrganismeRepository;
+import com.example.assoc.dao.TypecontactRepository;
+import com.example.assoc.dao.TypeorganismeRepository;
 import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Fonction;
 import com.example.assoc.entities.Organisme;
+import com.example.assoc.entities.Typecontact;
+import com.example.assoc.entities.Typeorganisme;
 
 @Controller
 public class ContactController {
@@ -37,6 +42,73 @@ public class ContactController {
 	ContactRepository contactrepository;
 	@Autowired
 	FonctionRepository fonctionrepository;
+	@Autowired
+	OrganismeRepository organismeRepository;
+	@Autowired
+	TypeorganismeRepository typeorganismeRepository;
+	@Autowired
+	TypecontactRepository typecontactRepository;
+	
+	
+	@RequestMapping(value="/signupp",method=RequestMethod.GET)
+	public String signup(Model model)
+	{
+		model.addAttribute("contact", new Contact());
+		model.addAttribute("organisme", new Organisme());
+		
+		List<Typeorganisme> types = typeorganismeRepository.findAll();
+		model.addAttribute("typeorganisme", types);
+		
+		return "signupp";
+	}
+	//@RequestMapping(value="/SaveNewUser",method=RequestMethod.POST)
+	@RequestMapping("/SaveNewUser")
+	public String NewUser(Contact c , Organisme o,@RequestParam("id_type_organism") String id,Model model)
+	{
+		Typecontact tc = typecontactRepository.getIdByNom("admin");
+		
+		List<Typeorganisme> types = typeorganismeRepository.findAll();
+		model.addAttribute("typeorganisme", types);
+		
+		if(c.getNom().matches("[a-zA-Z]+")==true) {
+			
+			if(c.getPrenom().matches("[a-zA-Z]+")==true) {
+				if(contactrepository.FindByEmail(c.getEmail())==false) {
+					Typeorganisme to = typeorganismeRepository.FindByid(Integer.parseInt(id));
+					o.setTypeorganisme(to);
+					c.setIdOrganisme(o);
+					c.setTypecontact(tc);
+					System.out.println("contact1 : "+o.getNom_association());
+					organismeRepository.save(o);
+					System.out.println("contact2 : "+o.getNom_association());
+					contactrepository.save(c);
+					System.out.println("contact3 : "+o.getNom_association());
+					//return logiiiiin
+				}
+				else {
+					model.addAttribute("alreadyRegisteredMessage","Email existe dèja !");
+					//email and organisme exist deja existe deja
+					System.out.println("email and organisme existe deja erreeeeer !!!");
+					return "signupp";
+				}
+			}
+			else {
+				//ereur prenom
+				model.addAttribute("prenomInvalidMessage","Prenom invalid !");
+				return "signupp";
+			}
+			
+		}
+		else {
+			//erreur nom
+			model.addAttribute("nomInvalidMessage","Nom invalid !");
+			return "signupp";
+		}
+		
+		return "signupp";
+	}
+	
+	
 	
 	@RequestMapping(value = {"media"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String media (Model model,HttpSession httpsession)

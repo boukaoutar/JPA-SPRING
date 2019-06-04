@@ -44,19 +44,19 @@ public class Contact implements Serializable {
 	@JoinColumn(name="id_organisme")
 	private Organisme idOrganisme;
 	
-	@NotEmpty
+	//@NotEmpty
 	private String nom;
 	
-	@NotEmpty
+	//@NotEmpty
 	private String prenom;
 	
 
 	@Column(name="email",length=50)
-	@Email
-	@NotEmpty
+	//@Email
+	//@NotEmpty
 	private String email;
 	
-	@NotEmpty
+	//@NotEmpty
 	private String password;
 	
 	private String cin;
@@ -65,10 +65,10 @@ public class Contact implements Serializable {
 
 	private String lieuNaiss;
 
-	@NotEmpty
+	//@NotEmpty
 	private String dateAdhesion;
 	
-	@Pattern(regexp="(^$|[0-9]{10})")
+	//@Pattern(regexp="(^$|[0-9]{10})")
 	private String numTele;
 
 	//@Column(nullable = true)

@@ -12,7 +12,7 @@ import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Organisme;
 
-public interface ContactRepository  extends JpaRepository<Contact, Integer>{
+public interface ContactRepository  extends JpaRepository<Contact, Integer>, ContactRepositoryCustom{
 	
 	//@Query("select * from contact  where nom = 'n'")
 	//public List<Contact> FindByName(@Param("n")String nom);
