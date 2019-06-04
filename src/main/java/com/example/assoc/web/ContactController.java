@@ -24,8 +24,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.assoc.dao.ContactRepository;
+import com.example.assoc.dao.FonctionRepository;
 import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
+import com.example.assoc.entities.Fonction;
 import com.example.assoc.entities.Organisme;
 
 @Controller
@@ -33,6 +35,32 @@ public class ContactController {
 	
 	@Autowired
 	ContactRepository contactrepository;
+	@Autowired
+	FonctionRepository fonctionrepository;
+	
+	@RequestMapping(value = {"media"},method = {RequestMethod.POST, RequestMethod.GET})
+	public String media (Model model,HttpSession httpsession)
+	{
+		if(httpsession.getAttribute("contact") == null)
+		{
+			return "redirect:login";
+		}
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		
+/////////////////////////////////////////////
+model.addAttribute("active1","nav-item  ");
+model.addAttribute("active2","nav-item  ");
+model.addAttribute("active3","nav-item  active");
+////////////////////////////////////////////
+model.addAttribute("colorcommunaute","nav-link");
+model.addAttribute("colorprofile","nav-link");
+model.addAttribute("coloraction","nav-link bg-info"); 
+		
+		model.addAttribute("dashboard","Media");
+		
+		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
+		return "dashboard";
+	}
 	
 	@RequestMapping(value = {"/login"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String login (Model model)
@@ -209,8 +237,6 @@ public class ContactController {
 		model.addAttribute("colorprofile","nav-link ");
 		model.addAttribute("coloraction","nav-link"); 
 		
-
-		
 		model.addAttribute("dashboard","userprofile");
 		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
 		return "dashboard";
@@ -276,12 +302,16 @@ public class ContactController {
 			return "redirect:login";
 		}
 		
+		System.out.println("contact fonction : "+contact.getFonction().getNom());
 		
+		contact.getFonction().setIdFonction(c.getFonction().getIdFonction());
+		contact.getFonction().setNom(contact.getFonction().getNom());
 		contact.setIdContact(c.getIdContact());
 		contact.setIdOrganisme(c.getIdOrganisme());
 		contact.setTypecontact(c.getTypecontact());
 		
 		contactrepository.save(contact);
+		fonctionrepository.save(contact.getFonction());
 		httpsession.setAttribute("contact",contact);
 		return "redirect:userprofile";
 		

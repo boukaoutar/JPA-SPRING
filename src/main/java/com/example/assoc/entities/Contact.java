@@ -6,6 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.id.IntegralDataTypeHolder;
 
@@ -43,8 +44,10 @@ public class Contact implements Serializable {
 	@JoinColumn(name="id_organisme")
 	private Organisme idOrganisme;
 	
+	@NotEmpty
 	private String nom;
 	
+	@NotEmpty
 	private String prenom;
 	
 
@@ -62,7 +65,11 @@ public class Contact implements Serializable {
 
 	private String lieuNaiss;
 
+	@NotEmpty
 	private String dateAdhesion;
+	
+	@Pattern(regexp="(^$|[0-9]{10})")
+	private String numTele;
 
 	//@Column(nullable = true)
 	private Integer numeroVote;
@@ -71,6 +78,14 @@ public class Contact implements Serializable {
 	private String photo;
 
 	
+
+	public String getNumTele() {
+		return numTele;
+	}
+
+	public void setNumTele(String numTele) {
+		this.numTele = numTele;
+	}
 
 	//bi-directional many-to-one association to Action
 	@OneToMany(mappedBy="contact")

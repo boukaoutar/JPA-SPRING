@@ -36,31 +36,34 @@
                         </div>
                       </div>
                     </div>
+                    
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Nom</label>
                           <input type="text" th:field="*{nom}" class="form-control">
-                          <span th:errors="*{nom}" class="text-danger" ></span>
-                        </div>
+                          <span th:errors="*{nom}" class="text-danger" ></span></div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Prenom</label>
                           <input type="text" th:field="*{prenom}" class="form-control">
                           <span th:errors="*{prenom}" class="text-danger" ></span>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Lieu de naissance</label>
-                          <input type="text" th:field="*{lieuNaiss}" class="form-control">
-                          <span th:errors="*{lieuNaiss}" class="text-danger" ></span>
+                          <label class="bmd-label-floating">Fonction</label>
+                          <input type="text" th:field="*{fonction.nom}" class="form-control">
+                          <span th:errors="*{fonction.nom}" class="text-danger" ></span>
+                          
                         </div>
                       </div>
                     </div>
+                    
+                    
+
+
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group">
@@ -84,6 +87,26 @@
                        </div>
                      </div> 
                     </div>
+                    
+                    
+                                        
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+						  <label class="bmd-label-floating">Lieu de naissance</label>
+                          <input type="text" th:field="*{lieuNaiss}" class="form-control">
+                          <span th:errors="*{lieuNaiss}" class="text-danger" ></span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">NumTélé</label>
+                          <input type="tel" th:field="*{numTele}" class="form-control" >
+                          <span th:errors="*{numTele}" class="text-danger" ></span>
+                        </div>
+                      </div>
+                    </div>
+                    
                  <!--   <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">

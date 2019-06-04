@@ -40,6 +40,8 @@
                        		 <div th:unless="${contact.getEmail() != null}" th:text="----------------"></div> 
                        </td> 
                        <td>
+                             <div th:if="${contact.getNumTele() != null}" th:text="${contact.getNumTele()}"></div> 
+                        	 <div th:unless="${contact.getNumTele() != null}" th:text="----------------"></div> 
                         </td> 
                         <td>
                         <div th:if="${contact.getFonction() != null}" th:text="${contact.getFonction().getNom()}"></div> 
