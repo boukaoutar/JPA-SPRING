@@ -33,23 +33,12 @@
             <form th:action="@{/typelogin}" method="post" th:object="${contact}">
               <h1>Login Form</h1>
               <div>
-                <input type="text"   th:field="*{email}" class="form-control" placeholder="Email" />
+                <input type="text"   th:field="*{email}" class="form-control" placeholder="Email" required/>
                 <span th:errors = "*{email}"  class="text-danger" ></span>
                 <span th:text = "${errorvalidation}" class="text-danger" ></span>
             
               </div>
-              <div>
-                <input type="hidden" name="password" id="password" value="0"  class="form-control" placeholder="password"  />
-              </div>
-              <div>
-                <input type="hidden" name="nom" id="nom" value="0"  class="form-control" placeholder="password"  />
-              </div>
-               <div>
-                <input type="hidden" name="dateAdhesion" id="dateAdhesion" value="0"  class="form-control" placeholder="password"  />
-              </div>
-               <div>
-                <input type="hidden" name="prenom" id="prenom" value="0"  class="form-control" placeholder="password"  />
-              </div>
+
               
               <div>
                 <!-- <a class="btn btn-default submit" href="index">Log in</a> -->

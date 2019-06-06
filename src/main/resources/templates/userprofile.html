@@ -23,14 +23,14 @@
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Email address</label>
-                          <input type="email" th:field="*{email}" class="form-control">
+                          <input type="email" th:field="*{email}" class="form-control" required>
                           <span th:errors = "*{email}"  class="text-danger" ></span>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Password</label>
-                          <input type="text" th:field="*{password}" class="form-control">
+                          <input type="text" th:field="*{password}" class="form-control" required>
                           <span th:errors="*{password}" class="text-danger" ></span>
                           
                         </div>
@@ -41,24 +41,37 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Nom</label>
-                          <input type="text" th:field="*{nom}" class="form-control">
+                          <input type="text" th:field="*{nom}" class="form-control" required>
                           <span th:errors="*{nom}" class="text-danger" ></span></div>
                       </div>
                       <div class="col-md-3">
                         <div class="form-group">
                           <label class="bmd-label-floating">Prenom</label>
-                          <input type="text" th:field="*{prenom}" class="form-control">
+                          <input type="text" th:field="*{prenom}" class="form-control" required>
                           <span th:errors="*{prenom}" class="text-danger" ></span>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fonction</label>
-                          <input type="text" th:field="*{fonction.nom}" class="form-control">
-                          <span th:errors="*{fonction.nom}" class="text-danger" ></span>
+<!--                           <input type="text" th:field="*{fonction.nom}" class="form-control"> -->
+                          
+                           <select name="idfonction"    class="form-control" >
+                     <option th:if="${contact.getFonction() == null}"  value="" text=" ">    </option>
+                            <option th:if="${contact.getFonction() != null}"   th:value="${contact.getFonction().getIdFonction()}" th:utext="${contact.getFonction().getNom()}"/>
+                         <div th:if="${contact.getFonction() != null}">
+                        <option  th:each="t : ${listfonction}" th:if="${t.nom!=contact.getFonction().getNom() }" th:value="${t.getIdFonction()}" th:utext="${t.nom}"/>
+              			    </div>
+              			    <div th:if="${contact.getFonction() == null}">
+                        <option  th:each="t : ${listfonction}"  th:value="${t.getIdFonction()}" th:utext="${t.nom}"/>
+              			    </div>
+              			  </select>
+                          
+                          
+                         
                           
                         </div>
-                      </div>
+                      </div> 
                     </div>
                     
                     
@@ -75,7 +88,7 @@
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">date adhésion</label>
-                          <input type="text" th:field="*{dateAdhesion}" class="form-control">
+                          <input type="text" th:field="*{dateAdhesion}" class="form-control" required>
                           <span th:errors="*{dateAdhesion}" class="text-danger" ></span>
                         </div>
                       </div>

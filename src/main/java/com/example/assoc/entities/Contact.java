@@ -52,7 +52,7 @@ public class Contact implements Serializable {
 	
 
 	@Column(name="email",length=50)
-	//@Email
+	@Email
 	//@NotEmpty
 	private String email;
 	
@@ -68,7 +68,7 @@ public class Contact implements Serializable {
 	//@NotEmpty
 	private String dateAdhesion;
 	
-	//@Pattern(regexp="(^$|[0-9]{10})")
+	@Pattern(regexp="(^$|[0-9]{10})")
 	private String numTele;
 
 	//@Column(nullable = true)

@@ -135,9 +135,17 @@ model.addAttribute("coloraction","nav-link bg-info");
 	}
 	
 	@RequestMapping(value = {"/login"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String login (Model model)
+	public String login (Model model,HttpSession httpsession)
 	{
 		model.addAttribute("contact",new Contact());
+		if(httpsession.getAttribute("contact") != null)
+		{
+			Contact c = (Contact) httpsession.getAttribute("contact");
+			if(c.getTypecontact().getNom().equals("admin"))
+			return "redirect:index";
+		else
+			return "redirect:communaute";
+		}
 			return "login";
 	}
 	
@@ -252,7 +260,12 @@ model.addAttribute("coloraction","nav-link bg-info");
 		{
 			return "redirect:login";
 		}
-		return "index";
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		if(c.getTypecontact().getNom().equals("admin"))
+		return "redirect:index";
+	else
+		return "redirect:communaute";
+		
 		
 	}
 	
@@ -309,6 +322,9 @@ model.addAttribute("coloraction","nav-link bg-info");
 		model.addAttribute("colorprofile","nav-link ");
 		model.addAttribute("coloraction","nav-link"); 
 		
+		
+		model.addAttribute("listfonction",fonctionrepository.findAll());
+		
 		model.addAttribute("dashboard","userprofile");
 		model.addAttribute("nomcontact",c.getPrenom()+" "+c.getNom());
 		return "dashboard";
@@ -349,7 +365,7 @@ model.addAttribute("coloraction","nav-link bg-info");
 	}
 	
 	@RequestMapping(value = {"/updateprofile"},method = {RequestMethod.POST, RequestMethod.GET})
-	public String updateprofile( @Valid Contact contact,BindingResult bindingresult,HttpSession httpsession,Model model)
+	public String updateprofile( @Valid Contact contact,BindingResult bindingresult,HttpSession httpsession,Model model,String idfonction)
 	{
 		Contact c = (Contact) httpsession.getAttribute("contact");
 		if(bindingresult.hasErrors())
@@ -371,19 +387,31 @@ model.addAttribute("coloraction","nav-link bg-info");
 		
 		if(httpsession.getAttribute("contact") == null)
 		{
+			
 			return "redirect:login";
 		}
-		
-		System.out.println("contact fonction : "+contact.getFonction().getNom());
-		
-		contact.getFonction().setIdFonction(c.getFonction().getIdFonction());
-		contact.getFonction().setNom(contact.getFonction().getNom());
+		model.addAttribute("contact",c);
+//		System.out.println("contact fonction : "+contact.getFonction().getNom());
+		Fonction fnct=null;
+		System.out.println("contact fonction : "+idfonction);
+		if(!idfonction.isEmpty())
+		{ System.out.println("contact fonction : "+idfonction);
+		 fnct=fonctionrepository.findById(Integer.parseInt(idfonction)).get();
+		 contact.setFonction(fnct);
+
+		}
+//		contact.getFonction().setNom(contact.getFonction().getNom());
+		System.out.println("fonction Name : "+c.getIdContact());
+		System.out.println("fonction Name : "+c.getIdOrganisme().getNom_association());
+		System.out.println("fonction Name : "+c.getTypecontact().getNom());
 		contact.setIdContact(c.getIdContact());
 		contact.setIdOrganisme(c.getIdOrganisme());
 		contact.setTypecontact(c.getTypecontact());
 		
+		
+		
 		contactrepository.save(contact);
-		fonctionrepository.save(contact.getFonction());
+//		fonctionrepository.save(contact.getFonction());
 		httpsession.setAttribute("contact",contact);
 		return "redirect:userprofile";
 		

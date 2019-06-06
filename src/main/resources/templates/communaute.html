@@ -25,7 +25,7 @@
                     <tbody>
                       <tr th:each="contact: ${contactsCommunaute}">
                          <td >
-                            <i class="material-icons" style="color:#FFD700"><div th:if="${contact.getTypecontact().getId_typeCont() == 2}" th:text="grade"></div> </i>
+                            <i class="material-icons" style="color:#FFD700"><div th:if="${contact.getTypecontact().getNom() == 'admin'}" th:text="grade"></div> </i>
                          </td>
                         <td >
                              <div th:if="${contact.getNom() != null}" th:text="${contact.getNom()}"></div> 
