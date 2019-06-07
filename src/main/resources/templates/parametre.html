@@ -318,11 +318,11 @@
                         </tr>
                       </thead>
                       <tbody   th:each="index : ${#numbers.sequence( 0, #arrays.length(orga)-1)}"  >
-                        <tr>
+                        <tr th:if = "${orga[index].getNom_association()!=organismes.getNom_association()}">
 <!--                           <th scope="row"><div th:text ="${orga.getId()}"/></th> -->
                           <td> <div  th:text="${orga[index].getNom_association()}" /></td>
                          <td> <div  th:text="${typecon[index].getNom()}" /></td>
-                       	<td  class="glyphicon glyphicon-log-in"> </td>
+                       	<td  ><a id="Delete" name="Delete" th:href="@{'/reconnect'(nomorganisme=${orga[index].getNom_association()})}"><i class="glyphicon glyphicon-log-in"></i></a></td> 
                         </tr>
 
                       </tbody>

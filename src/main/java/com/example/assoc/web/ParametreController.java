@@ -5,12 +5,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.dao.OrganismeRepository;
@@ -49,19 +52,18 @@ public class ParametreController {
 	
 
 	@RequestMapping("/parametre")
-	public String Parametre(Model model,String admin)
+	public String Parametre(Model model,String admin,HttpSession httpsession)
 	{
+		Contact c = (Contact) httpsession.getAttribute("contact");
 		
 		List<Contact> contacts = contactrepo.findAll();
 		model.addAttribute( "contacts" , contacts);
 		
-		Optional<Contact> cntct = contactrepo.findById(1);
-		model.addAttribute( "cntct" , cntct.get());
+		Optional<Organisme> organismes = organismerepo.findById(c.getIdOrganisme().getIdOrganisme());
+		model.addAttribute( "organismes" , organismes.get());
 		
-
-	Optional<Organisme> organismes = organismerepo.findById(1);
-      model.addAttribute( "organismes" , organismes.get());
-	  //model.addAttribute( "contact" , "hahaha");
+//		Optional<Contact> cntct = contactrepo.findById(1);
+		model.addAttribute( "cntct" , c);
 		
 		List<Typeorganisme> orgaList = typeorganismerepo.findAll();
 		model.addAttribute( "orgaList" , orgaList);
@@ -69,10 +71,10 @@ public class ParametreController {
 		List<Ville> villeList = villerepo.findAll();
 		model.addAttribute( "villeList" , villeList);
 		
-		List<Organisme> orga = contactrepo.findorganismeByemail("bader@gmail.com");
+		List<Organisme> orga = contactrepo.findorganismeByemail(c.getEmail());
 		model.addAttribute( "orga" , orga);
 		
-		List<Typecontact> typecon = contactrepo.findtypecontactByemail("bader@gmail.com");
+		List<Typecontact> typecon = contactrepo.findtypecontactByemail(c.getEmail());
 		model.addAttribute( "typecon" , typecon);
 		
 		System.out.print("admin value xxxxxx : "+admin);
@@ -114,7 +116,7 @@ public class ParametreController {
 	  idorga,String firstname2,@RequestParam ("ville") String ville,String
 	  adresse,String mailcontact,String telcontact,String fixcontact,String
 	  siteweb,@RequestParam ("typeassoc") String typeassoc,String objectif,String
-	  date) {
+	  date,HttpSession httpsession,RedirectAttributes redirectattribute) {
 		  Structure structure;
 		  System.out.println("ID orga  "+idorga);
 		  Organisme organisme=organismerepo.findById(Integer.parseInt(idorga)).get();
@@ -158,9 +160,9 @@ public class ParametreController {
 	  str.setAdresse(adresse);
 	  organisme.setStructure(str); 
 	  organismerepo.save(organisme);
-		  
+	  //redirectattribute.addFlashAttribute("message","Ressource bien ajouter avec le montant "+ressource.getMontant());
 	  }
-	  return Parametre( model, "0"); }
+	  return Parametre( model, "0",httpsession); }
 	 
 	
 }

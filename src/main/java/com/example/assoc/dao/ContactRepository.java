@@ -30,8 +30,12 @@ public interface ContactRepository  extends JpaRepository<Contact, Integer>, Con
 	@Query("select a from Action a where a.contact.idOrganisme.idOrganisme =:x")
 	public Page<Action> findActionsByorganisme(@Param("x")Integer idorganisme, Pageable pageable);
 	
-	
 	@Query("select c.typecontact from Contact c where c.email =:x")
 	public List<Typecontact> findtypecontactByemail(@Param("x")String email);
+	
+	@Query("select count(c) from Contact c where c.idOrganisme.idOrganisme =:x and c.typecontact.nom =:y ")
+	public Long findalladminByorganisme(@Param("x")Integer idOrganisme,@Param("y")String typeContact);
+	
+
 	
 }

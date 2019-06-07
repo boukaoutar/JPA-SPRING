@@ -272,7 +272,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <tr th:each="action : ${actions}">
     
     <td th:text="${action.getNom()}" ></td>
-      <td th:text="${action.getProjet().getOrganisme().getNom_association()}" ></td>
+      <td th:text="${action.getContact().getIdOrganisme().getNom_association()}" ></td>
       
      <td th:text="${action.getBudget()+' MAD'}"></td>
 <!--       <td th:text="${action.getImpact()}"></td> -->

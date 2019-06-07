@@ -38,7 +38,7 @@
               </div>
               <div class="profile_info">
                 <h5 style="color: white;"  th:text="${cntct.getNom()} + ' ' + ${cntct.getPrenom()}"></h5>
-              <h6 > Administrateur,</h6> 
+              <h6 > Administrateur</h6> 
 <!--               <h6 th:text="${cntct.getPrenom()}"></h6>  -->
               </div>
             </div>
@@ -54,7 +54,7 @@
                
                
                   <li>
-                          <a href="index.html"><i class="fa fa-bar-chart-o"></i> Acceuil <span ></span></a>
+                          <a href="index"><i class="fa fa-bar-chart-o"></i> Acceuil <span ></span></a>
                   </li>
                   
 
@@ -141,7 +141,7 @@
                     </li>
                     
                   <!--    <li><a href="javascript:;">Help</a></li> -->
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Deconnexion </a></li>
+                    <li><a th:href="@{/logout}"><i class="fa fa-sign-out pull-right"></i> Deconnexion </a></li>
                   </ul>
                 </li>
                   </li>

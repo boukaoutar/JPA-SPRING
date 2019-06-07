@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,13 +37,15 @@ public class ProfileController {
 	private TypetelephoneRepository telrepo;
 	
 	@RequestMapping("/profile.html")
-	public String Profil(Model model)
+	public String Profil(Model model,HttpSession httpsession)
 	{
-		Optional<Organisme> organismes = organismerepo.findById(1);
+		Contact c = (Contact) httpsession.getAttribute("contact");
+		
+		Optional<Organisme> organismes = organismerepo.findById(c.getIdOrganisme().getIdOrganisme());
 		model.addAttribute( "organismes" , organismes.get());
 		
-		Optional<Contact> cntct = contactrepo.findById(1);
-		model.addAttribute( "cntct" , cntct.get());
+//		Optional<Contact> cntct = contactrepo.findById(1);
+		model.addAttribute( "cntct" , c);
 		
 		
 		List<Typetelephone> telList = telrepo.findAll();
@@ -54,7 +58,7 @@ public class ProfileController {
 	  public String updateCont(Model model,String
 	 idcont,String nom,String prenom, String cin,String
 	  tel,String date,String lieu,String email,String
-	 passone, String passtwo) {
+	 passone, String passtwo,HttpSession httpsession) {
 		  //Structure structure;
 		  System.out.println("ID Contact  "+idcont);
 		  Contact cn=contactrepo.findById(Integer.parseInt(idcont)).get();
@@ -100,6 +104,6 @@ public class ProfileController {
 			  contactrepo.save(cn);
 		 
 
-	  return Profil( model); }
+	  return Profil( model,httpsession); }
 	
 }

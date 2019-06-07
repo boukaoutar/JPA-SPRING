@@ -16,6 +16,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.assoc.dao.ActionRepository;
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.dao.MediaRepository;
 import com.example.assoc.dao.OrganisateurRepository;
@@ -82,6 +84,8 @@ public class ActionController {
 	@Autowired
 	private TypeActionMetierImp typeaction;
 	
+	@Autowired
+	private ActionRepository actionrepo;
 	
 	@Autowired
 	private ProjetMetierImp projet;
@@ -191,8 +195,10 @@ public class ActionController {
 		
 	}
 	@RequestMapping("/first")
-	public String page(Model model) {
+	public String page(Model model,HttpSession httpsession) {
 		//session.setAttribute("dddd", "dfdf");
+		Contact c =(Contact) httpsession.getAttribute("contact");
+		
 		List<Quartier> quartiers=quartier.getAll();
 		model.addAttribute("quartiers", quartiers);
 		
@@ -208,7 +214,8 @@ public class ActionController {
 		List<Typeaction> typesAct=typeaction.getAll();
 		model.addAttribute("typesAct", typesAct);
 		
-		List<Action> actions=actionMetierImp.getAll();
+//		List<Action> actions=actionMetierImp.getAll();
+		List<Action> actions= actionrepo.findlistactionByorganisme(c.getIdOrganisme().getIdOrganisme());
 		//List<Action> actions2=actionMetierImp.getMyActions(1);
 		model.addAttribute("actions", actions);
 		//List<Action> data=listpartner ();

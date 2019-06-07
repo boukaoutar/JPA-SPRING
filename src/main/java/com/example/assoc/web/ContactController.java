@@ -4,7 +4,8 @@ package com.example.assoc.web;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -22,24 +23,31 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.dao.FonctionRepository;
 import com.example.assoc.dao.OrganismeRepository;
+import com.example.assoc.dao.StructureRepository;
 import com.example.assoc.dao.TypecontactRepository;
 import com.example.assoc.dao.TypeorganismeRepository;
+import com.example.assoc.dao.VilleRepository;
 import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Fonction;
 import com.example.assoc.entities.Organisme;
+import com.example.assoc.entities.Structure;
 import com.example.assoc.entities.Typecontact;
 import com.example.assoc.entities.Typeorganisme;
+import com.example.assoc.entities.Ville;
 
 @Controller
 public class ContactController {
 	
 	@Autowired
 	ContactRepository contactrepository;
+	@Autowired
+	VilleRepository villerepo;
 	@Autowired
 	FonctionRepository fonctionrepository;
 	@Autowired
@@ -48,25 +56,46 @@ public class ContactController {
 	TypeorganismeRepository typeorganismeRepository;
 	@Autowired
 	TypecontactRepository typecontactRepository;
-	
+	@Autowired
+	VilleRepository villeRepository;
+	@Autowired
+	StructureRepository structurerepository;
 	
 	@RequestMapping(value="/signupp",method=RequestMethod.GET)
 	public String signup(Model model)
 	{
 		model.addAttribute("contact", new Contact());
 		model.addAttribute("organisme", new Organisme());
+		List<Ville> villeList = villerepo.findAll();
+		model.addAttribute( "villeList" , villeList);
+		
 		
 		List<Typeorganisme> types = typeorganismeRepository.findAll();
 		model.addAttribute("typeorganisme", types);
 		
 		return "signupp";
 	}
+	
+	@RequestMapping(value="/reconnect",method=RequestMethod.GET)
+	public String reconnect(Model model,HttpSession httpSession,@RequestParam("nomorganisme")String organisme,RedirectAttributes redirect)
+	{
+		Contact c =(Contact) httpSession.getAttribute("contact");
+		Contact contact = new Contact(); 
+		contact.setIdContact(c.getIdContact());
+		contact.setEmail(c.getEmail());
+		httpSession.setAttribute("contact",null);
+		httpSession.setAttribute("email",contact.getEmail());
+		httpSession.setAttribute("organisme",organisme);
+		redirect.addFlashAttribute("reconnect", "ok");
+	
+		return "redirect:connect";
+	}
 	//@RequestMapping(value="/SaveNewUser",method=RequestMethod.POST)
 	@RequestMapping("/SaveNewUser")
-	public String NewUser(Contact c , Organisme o,@RequestParam("id_type_organism") String id,Model model)
+	public String NewUser(Contact c , Organisme o,@RequestParam("id_type_organism") String id,Model model,String ville)
 	{
 		Typecontact tc = typecontactRepository.getIdByNom("admin");
-		
+		Optional<Ville> villea = villeRepository.findById(Integer.parseInt(ville));
 		List<Typeorganisme> types = typeorganismeRepository.findAll();
 		model.addAttribute("typeorganisme", types);
 		
@@ -78,7 +107,11 @@ public class ContactController {
 					o.setTypeorganisme(to);
 					c.setIdOrganisme(o);
 					c.setTypecontact(tc);
+				
 					System.out.println("contact1 : "+o.getNom_association());
+					Structure str=structurerepository.save(new Structure());
+					o.setVille(villea.get());
+					o.setStructure(str);
 					organismeRepository.save(o);
 					System.out.println("contact2 : "+o.getNom_association());
 					contactrepository.save(c);
@@ -110,7 +143,7 @@ public class ContactController {
 	
 	
 	
-	@RequestMapping(value = {"media"},method = {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value = {"mediaa"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String media (Model model,HttpSession httpsession)
 	{
 		if(httpsession.getAttribute("contact") == null)
@@ -220,17 +253,39 @@ model.addAttribute("coloraction","nav-link bg-info");
 				return "redirect:login";
 			}
 
-			
 			if(bindingresult.hasErrors())
 			{	
 				System.out.println("Erroor xxxxxxxxxxxxxxx ");
 				return "passwordlogin";
 			}
-			
+			String reconnect="";
+			Map md = model.asMap();
+		    for (Object modelKey : md.keySet()) {
+		        Object modelValue = md.get(modelKey);
+		        
+//		        model.addAttribute(String.valueOf(modelKey),String.valueOf(modelValue));
+		        //model.addAttribute("a","a");
+		        System.out.println(modelKey + " -- " + modelValue);
+		        if(modelKey.equals("reconnect"))
+		        {
+		        	reconnect=modelValue.toString();
+		        }
+		    }
 			if(c == null) {
-				model.addAttribute("errorvalidation","password incorrect !!");
-				return "passwordlogin";
+				if(reconnect.equals("ok")) {
+					return "passwordlogin";
+				}
+				else 
+				{
+					model.addAttribute("errorvalidation","password incorrect !!");
+					return "passwordlogin";
+				}
+				
+			
 			}
+			
+			
+			
 			
 			System.out.println("contact cin : "+c.getCin()+"  contact name : "+c.getNom()+" Type contact : "+c.getTypecontact().getNom());
 			httpsession.setAttribute("contact", c);
@@ -253,7 +308,7 @@ model.addAttribute("coloraction","nav-link bg-info");
 		
 	}
 	
-	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
+/*	@RequestMapping(value = {"/index"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String index(HttpSession httpsession)
 	{
 		if(httpsession.getAttribute("contact") == null)
@@ -267,7 +322,7 @@ model.addAttribute("coloraction","nav-link bg-info");
 		return "redirect:communaute";
 		
 		
-	}
+	}*/
 	
 	@RequestMapping(value = {"/communaute"},method = {RequestMethod.POST, RequestMethod.GET})
 	public String communaute(HttpSession httpsession,Model model

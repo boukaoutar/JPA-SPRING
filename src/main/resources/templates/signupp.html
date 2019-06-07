@@ -49,18 +49,31 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
               <span th:if="${alreadyRegisteredMessage}" role="alert" th:text="${alreadyRegisteredMessage}" style="color:#FF0000"></span>
                 <input type="email" class="form-control" placeholder="Email" th:value=${contact.email} name="email" required />
               </div>
-              <div>
-                <input type="password" class="form-control" placeholder="Mot de passe" th:value=${contact.password} name="password" required/>
-              </div>
+              
               <div>
                 <input type="text" class="form-control" placeholder="Nome de l'association" th:value=${organisme.nom_association} name="nom_association" required/>
               </div>
+              
               <div>
                 <select name="type_association"  th:name="id_type_organism"  class="form-control" required>
                         <option disabled="disabled" value="" selected="selected">Type de l'association</option>
                         <option th:each="t : ${typeorganisme}"  th:value="${t.id_typeOrga}" th:utext="${t.nom}"/>
                 </select>
+                </br>
               </div>
+              <div>
+                <input type="password" class="form-control" placeholder="Mot de passe" th:value=${contact.password} name="password" required/>
+              </div>
+              <div >
+                        
+                          <select  name="ville" class="form-control">
+                          
+   <option disabled="disabled" value="" selected="selected">Ville de l'association</option>
+    <option th:each="t : ${villeList}"   th:value="${t.getIdVille()}" th:text="${t.getNom()}"></option>
+
+                          </select>
+                        
+                      </div>
               <div class="form-group">
               <br/>
               <button class="btn btn-success" type="submit">S'inscrire</button>
