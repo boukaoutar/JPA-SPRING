@@ -262,7 +262,7 @@ model.addAttribute("coloraction","nav-link bg-info");
 		}
 		Contact c = (Contact) httpsession.getAttribute("contact");
 		if(c.getTypecontact().getNom().equals("admin"))
-		return "redirect:index";
+		return "index";
 	else
 		return "redirect:communaute";
 		

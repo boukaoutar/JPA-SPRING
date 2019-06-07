@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="utf-8"/>
+<!-- <link href="webjars/bootstrap/3.3.6/css/bootstrap.min.css"
+        rel="stylesheet"> -->
+         
+         <link rel="stylesheet" type="text/css" href="../static/bower_components/bootstrap/dist/css/bootstrap.min.css" th:href="@{/bower_components/bootstrap/dist/css/bootstrap.min.css}"> 
+         <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"> -->
+          <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+  <!-- Morris chart -->
+  <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+  <!-- jvectormap -->
+  <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+  <!-- Date Picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <!-- Daterange picker -->
+  <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+  <!-- bootstrap wysihtml5 - text editor -->
+  <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript" src="..static/js/datepicker/daterangepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/jquery-ui.js" type="text/javascript"></script>
+<link href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.8.9/themes/blitzer/jquery-ui.css" rel="stylesheet" type="text/css" />
+  
+<title>Ressource Action</title>
+</head>
+<body>
+<header>
+<div class="navbar navbar-default">
+  
+  <div class="container-fluid">
+    <ul class="nav navbar-nav">
+      <li >
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li >
+        <a  href="#">Features</a>
+      </li>
+      <li >
+        <a href="#">Pricing</a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+</header>
+
+<div layout:fragment="content">
+<div class="col-md-4">
+<div class="alert alert-success" th:if="${message}">
+<div><h4  th:text="${message}" ></h4>
+</div></div>
+<div class="panel panel-info">
+
+    <div class="panel-heading">Ressource Infos</div>
+  <div class="panel-body">
+<form th:action="@{/AddRess}" method="post">
+  <div class="form-group">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Montant <small > (MAD)</small></label>
+      <input type="number" step="any" class="form-control" id="montant" name="montant" placeholder="0000" min="0" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputState">Action</label>
+      <select id="idAction" name="idAction" class="form-control" required>
+         <option value=""> -- </option>
+   <option th:each="action : ${actions}"  th:value="${action.getIdAction()}" th:text="${action.getNom()}"></option>
+      </select>
+    </div>
+    </div>
+  <div class="form-group">
+  <div class="form-group col-md-12">
+    <label for="description">Description</label>
+    <textarea class="form-control" id="description" name="description" required></textarea>
+    <span th:if="${MsgDescription}" role="alert" th:text="${MsgDescription}" style="color:#FF0000"></span>
+  </div>
+  </div>
+  <!-- <div class="form-group">
+    <label for="inputAddress2">Address 2</label>
+    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input type="text" class="form-control" id="inputCity">
+    </div>
+    <div class="form-group col-md-4">
+      <label for="inputState">State</label>
+      <select id="inputState" class="form-control">
+        <option selected>Choose...</option>
+        <option>...</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="inputZip">Zip</label>
+      <input type="text" class="form-control" id="inputZip">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div> -->
+ 
+  
+  <div class="form-group "><button type="submit" class="btn btn-primary"><b>Add Res</b></button></div>
+ 
+  
+</form>
+</div>
+</div>
+</div>
+<div class="col-md-8" th:if="${ressources}">
+<div class="panel panel-info">
+
+    <div class="panel-heading"><b>Listes des ressource par action</b></div>
+  <div class="panel-body">
+<form th:action="@{/EditeAction}" method="post">
+<table class="table">
+  <thead>
+    <tr>
+      <th >Nom d'action</th>
+      <th >Organisme</th>
+      <th >Quartier</th>
+      <th >Budget d'action </th>
+      <th >Montant ressource</th>
+      <th >Description ressource</th>
+      
+      <th ></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="ressource : ${ressources}">
+    
+    <td th:text="${ressource.getAction().getNom()}" ></td>
+      <td th:text="${ressource.getAction().getProjet().getOrganisme().getNom_association()}" ></td>
+      <td th:text="${ressource.getAction().getQuartier().getNom()}"></td>
+     <td th:text="${ressource.getAction().getBudget()+' MAD'}"></td>
+      <td th:text="${ressource.getMontant()+' MAD'}"></td>
+        <td th:text="${ressource.getDescription()}"></td>
+       <style>
+    #Delete { color: #DF0101; } /* CSS link color */
+  </style>
+  <style>
+    #updateA { color: #26B99A; } /* CSS link color */
+  </style>
+       <td><a id="updateA" name="updateA" th:href="@{'/PageRessUpdate'(RessId=${ressource.getIdRessource()})}" >Update <i class="fa fa-edit "></i></a></td>
+        <td><a id="Delete" name="Delete"  th:href="@{'/deleteRess'(RessId=${ressource.getIdRessource()})}" >Delete <i class="fa fa-trash"></i></a></td>
+      <!-- <td><button type="submit" class="btn btn-light" name="updateA" th:value="${action.getIdAction()}">Update</button></td> 
+      <td><a name="updateA" th:href="@{'/EditeAction'(updateA=${action.getIdAction()})}" >Update<i class="fa fa-edit"></i></a></td>
+      <td><a  th:href="@{'/deleteA'(DeleteA=${action.getIdAction()})}"  id="Delete" name="Delete" >Delete<i class="fa fa-trash"></i></a></td>
+     
+      
+      <!--
+      <td><a class="btn btn-info" th:href="@{'/AddPartnerAction'(IdAction=${action.getIdAction()})}" th:text="Add Partner" id="Partner" name="Partner" ></a></td> 
+      <a th:href="@{/EditeAction?updateA=2}"></a>  <input  class="btn btn-danger" th:text="Delete" name="DeleteA" th:value="${action.getIdAction()}" > -->
+    </tr>
+    
+  </tbody>
+</table>
+</form>
+</div>
+</div>
+</div>
+</div>
+
+
+</body>
+</html>
