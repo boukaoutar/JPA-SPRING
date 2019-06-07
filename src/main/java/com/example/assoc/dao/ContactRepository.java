@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Organisme;
+import com.example.assoc.entities.Typecontact;
 
 public interface ContactRepository  extends JpaRepository<Contact, Integer>, ContactRepositoryCustom{
 	
@@ -28,5 +29,9 @@ public interface ContactRepository  extends JpaRepository<Contact, Integer>, Con
 	
 	@Query("select a from Action a where a.contact.idOrganisme.idOrganisme =:x")
 	public Page<Action> findActionsByorganisme(@Param("x")Integer idorganisme, Pageable pageable);
+	
+	
+	@Query("select c.typecontact from Contact c where c.email =:x")
+	public List<Typecontact> findtypecontactByemail(@Param("x")String email);
 	
 }

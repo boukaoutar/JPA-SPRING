@@ -23,9 +23,12 @@ public class Organisme implements Serializable {
 	
 	@Column(name="nom_association",length=50,unique=false)
 	private String nom_association;
+	
+	@ManyToOne
+	@JoinColumn(name="idVille")
+    private Ville ville;
 
-	private String ville;
-
+	
 	//bi-directional many-to-one association to Typeorganisme
 	@ManyToOne
 	@JoinColumn(name="id_typeOrga")
@@ -41,7 +44,7 @@ public class Organisme implements Serializable {
 	private List<Projet> projets;
 
 	
-	public Organisme(String adresse, String nom_association, String ville, Typeorganisme typeorganisme,
+	public Organisme(String adresse, String nom_association, Ville ville, Typeorganisme typeorganisme,
 			Structure structure, List<Projet> projets) {
 		super();
 		this.adresse = adresse;
@@ -81,11 +84,11 @@ public class Organisme implements Serializable {
 		this.nom_association = nom_association;
 	}
 
-	public String getVille() {
+	public Ville getVille() {
 		return ville;
 	}
 
-	public void setVille(String ville) {
+	public void setVille(Ville ville) {
 		this.ville = ville;
 	}
 

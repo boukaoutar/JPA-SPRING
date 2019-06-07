@@ -30,6 +30,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.assoc.dao.ContactRepository;
 import com.example.assoc.dao.MediaRepository;
 import com.example.assoc.dao.OrganisateurRepository;
+import com.example.assoc.dao.OrganismeRepository;
 import com.example.assoc.dao.PartenaireRepository;
 import com.example.assoc.dao.QuartierRepository;
 import com.example.assoc.dao.RessourceRepository;
@@ -39,6 +40,7 @@ import com.example.assoc.entities.Action;
 import com.example.assoc.entities.Contact;
 import com.example.assoc.entities.Media;
 import com.example.assoc.entities.Organisateur;
+import com.example.assoc.entities.Organisme;
 import com.example.assoc.entities.Partenaire;
 import com.example.assoc.entities.Personne;
 import com.example.assoc.entities.Projet;
@@ -85,6 +87,9 @@ public class ActionController {
 	private ProjetMetierImp projet;
 	@Autowired
 	private QuartierMetierImp quartier;
+	
+	@Autowired
+	private OrganismeRepository organismerepo;
 	
 	@Autowired
 	private RessourceMetierImp ressourceMetierImp;
@@ -193,6 +198,12 @@ public class ActionController {
 		
 		List<Projet> projets=projet.getAll();
 		model.addAttribute("projets", projets);
+		
+		Optional<Organisme> organismes = organismerepo.findById(1);
+		model.addAttribute( "organismes" , organismes.get());
+		
+		Optional<Contact> cntct = contact.findById(1);
+		model.addAttribute( "cntct" , cntct.get());
 		
 		List<Typeaction> typesAct=typeaction.getAll();
 		model.addAttribute("typesAct", typesAct);
