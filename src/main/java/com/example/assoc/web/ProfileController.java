@@ -61,8 +61,8 @@ public class ProfileController {
 	 passone, String passtwo,HttpSession httpsession) {
 		  //Structure structure;
 		  System.out.println("ID Contact  "+idcont);
-		  Contact cn=contactrepo.findById(Integer.parseInt(idcont)).get();
-	
+//		  Contact cn=contactrepo.findById(Integer.parseInt(idcont)).get();
+		  Contact cn = (Contact) httpsession.getAttribute("contact");
 		  Contact contac = cn;
 		  
 		  
@@ -70,9 +70,9 @@ public class ProfileController {
 			  cn.setPrenom(prenom);
 			  cn.setCin(cin);
 			  cn.setNumTele(tel);
-			
-		     
-		       cn.setDateNaiss(date);
+//			  && isValidFormat("DD/MM/YYYY", date)==true
+		     if(date!=null ) { cn.setDateNaiss(date);}
+		      
 			  cn.setLieuNaiss(lieu);
 			  cn.setEmail(email);
 			
@@ -81,7 +81,7 @@ public class ProfileController {
 			  {
 				  System.out.println("NNNNNNNNNNNNNNN"+passtwo);
 				  cn.setPassword(passone);
-				  
+				  contactrepo.save(cn);
 				 
 			  }
 			  
@@ -97,13 +97,27 @@ public class ProfileController {
 					  model.addAttribute("msg","Les deux mot de passe sont pas identique");
 				  }
 				  }
+				  contactrepo.save(cn);
 			  }
 		
 			  
-			
-			  contactrepo.save(cn);
+//			
+//			  contactrepo.save(cn);
 		 
 
 	  return Profil( model,httpsession); }
+	 public static boolean isValidFormat(String format, String value) {
+	        Date date = null;
+	        try {
+	            SimpleDateFormat sdf = new SimpleDateFormat(format);
+	            date = sdf.parse(value);
+	            if (!value.equals(sdf.format(date))) {
+	                date = null;
+	            }
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	        return date != null;
+	    }
 	
 }

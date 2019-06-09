@@ -30,8 +30,12 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
+         
+          <div class="alert alert-success" th:if="${MsgSuccess}">
+<div><h4  th:text="${MsgSuccess}" ></h4>
+</div></div>
             <form th:action="@{/typelogin}" method="post" th:object="${contact}">
-              <h1>Login Form</h1>
+              <h1>S'authentifiez</h1>
               <div>
                 <input type="text"   th:field="*{email}" class="form-control" placeholder="Email" required/>
                 <span th:errors = "*{email}"  class="text-danger" ></span>
@@ -42,7 +46,7 @@
               
               <div>
                 <!-- <a class="btn btn-default submit" href="index">Log in</a> -->
-                 <button type="submit" class="btn btn-default submit" >Next</button>
+                 <button type="submit" class="btn btn-default submit" >Suivant</button>
           <!--     <a class="reset_pass" href="#">Lost your password?</a> -->
               </div>
 

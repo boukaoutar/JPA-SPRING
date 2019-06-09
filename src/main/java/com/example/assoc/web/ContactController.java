@@ -2,7 +2,9 @@ package com.example.assoc.web;
 
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -110,6 +112,10 @@ public class ContactController {
 				
 					System.out.println("contact1 : "+o.getNom_association());
 					Structure str=structurerepository.save(new Structure());
+					SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
+			         Date dateSys = new Date();
+			         String frmtDate = dateFormat.format(dateSys);
+			         str.setDateCreation(frmtDate);
 					o.setVille(villea.get());
 					o.setStructure(str);
 					organismeRepository.save(o);
@@ -130,7 +136,8 @@ public class ContactController {
 				model.addAttribute("prenomInvalidMessage","Prenom invalid !");
 				return "signupp";
 			}
-			
+			model.addAttribute("MsgSuccess", "Votre inscription bien fait");
+			return "login";
 		}
 		else {
 			//erreur nom
@@ -138,7 +145,7 @@ public class ContactController {
 			return "signupp";
 		}
 		
-		return "signupp";
+		
 	}
 	
 	

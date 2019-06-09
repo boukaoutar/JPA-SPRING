@@ -93,12 +93,12 @@ public class AccueilController {
 	@RequestMapping(value="/saveTaches")
 	public String saveTaches(String tch) {
 		tacheRepository.save(new Taches(tch));
-	 	return "redirect:/index.html";
+	 	return "redirect:index";
 	}
 	@RequestMapping(value="/supprimer")
 	public String supprimer(Integer id) {
 		tacheRepository.deleteById(id);
-		return "redirect:/index";
+		return "redirect:index";
 	}
 	@RequestMapping(value="/edit")
 	public String edit (Integer id,Model model) {
@@ -110,7 +110,7 @@ public class AccueilController {
 	public String updateTaches(Taches tch) {
 		
 		tacheRepository.save(tch);
-	 	return "redirect:/index";
+	 	return "redirect:index";
 	}
 
 }

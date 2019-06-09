@@ -54,7 +54,7 @@
                
                
                   <li>
-                          <a href="index"><i class="fa fa-bar-chart-o"></i> Acceuil <span ></span></a>
+                          <a href="index"><i class="fa fa-home"></i> Acceuil <span ></span></a>
                   </li>
                   
 
@@ -73,14 +73,20 @@
                   
                   <li><a><i class="fa fa-table"></i> Evénements <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                      <li><a href="tables_dynamic.html">Table Dynamic</a></li>
+                      <li><a th:href="@{/NewAction}">Ajouter une action</a></li>
+                      <li><a th:href="@{/first}">Liste des actions</a></li>
+                    </ul>
+                  </li>
+                    <li><a><i class="fa fa-file-o"></i> Medias <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a th:href="@{/Media}">Ajouter un media</a></li>
+                      <li><a th:href="@{/ListMedia}">Liste des medias</a></li>
                     </ul>
                   </li>
                   
        
                   
-                     <li><a  th:href="@{/parametre?admin=0}" ><i class="fa fa-home"></i> Mon association </span></a>
+                     <li><a  th:href="@{/parametre?admin=0}" ><i class="fa fa-university"></i> Mon association </span></a>
                     
                   </li>
                 </ul>
@@ -106,7 +112,7 @@
               
              
               
-              <a data-toggle="tooltip" data-placement="top" title="Déconnexion" href="login.html">
+              <a data-toggle="tooltip" data-placement="top" title="Déconnexion" th:href="@{/logout}">
                 <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
               </a>
             </div>

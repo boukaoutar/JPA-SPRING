@@ -58,7 +58,7 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-          <div class="">
+<!--           <div class=""> -->
             <div class="page-title">
               <div class="title_left">
                <!-- <h3>Paramètre General</h3>  --> 
@@ -70,7 +70,7 @@
 
             <div class="clearfix"></div>
 
-            <div class="">
+<!--             <div class=""> -->
               <div class="col-md-12 col-sm-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -217,12 +217,22 @@
               
                <label for="middle-name" class="control-label col-md-3 col-sm-3"> Date Création <span class="required">*</span></label>
                       <div class="col-md-6 col-sm-6">
-                        <div class='input-group date' >
-                            <input th:value = "${organismes.getStructure().getDateCreation()}"  type='text' name="date" class="form-control col-md-7 col-xs-12" />
-                            <span class="input-group-addon">
+                       <div class='input-group date' id='myDatepicker2'>
+<!--                             <input type='text' class="form-control"id="dateDebut" name="dateDebut" /> -->
+                            <input disabled="disabled" th:value = "${organismes.getStructure().getDateCreation()}"  type='text' name="date" class="form-control col-md-7 col-xs-12" />
+                             <span class="input-group-addon">
                                <span class="glyphicon glyphicon-calendar"></span>
                             </span>
-                        </div>
+     <span th:if="${MsgDate}" role="alert" th:text="${MsgDate}" style="color:#FF0000"></span>
+<!--    </div> -->
+ 
+  </div>
+<!--                         <div class='input-group date' > -->
+<!--                             <input th:value = "${organismes.getStructure().getDateCreation()}"  type='text' name="date" class="form-control col-md-7 col-xs-12" /> -->
+<!--                             <span class="input-group-addon"> -->
+<!--                                <span class="glyphicon glyphicon-calendar"></span> -->
+<!--                             </span> -->
+<!--                         </div> -->
                     		</div>
                     		</div>
                      
@@ -338,7 +348,8 @@
 
                   </div>
                 </div>
-              </div> </div> </div> </div> </div> </div> </div> 
+              </div> </div> </div> </div> </div>
+<!--                </div> </div>  -->
         
 
     <!-- jQuery -->

@@ -45,7 +45,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
+        <div th:replace = "form :: form1"> </div>
+     <!--    <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               <a href="index.html" class="site_title"><i class="fa fa-gg "></i> <span> Mon association </span></a>
@@ -53,7 +54,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
             <div class="clearfix"></div>
 
-            <!-- menu profile quick info -->
+            menu profile quick info
             <div class="profile clearfix">
               <div class="profile_pic">
                 <img src="images/img.jpg" alt="..." class="img-circle profile_img">
@@ -63,14 +64,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                 <h2>John Doe</h2>
               </div>
             </div>
-            <!-- /menu profile quick info -->
+            /menu profile quick info
 
             <br />
 
-            <!-- sidebar menu -->
+            sidebar menu
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-            <!--   <h3>General</h3>  -->  
+              <h3>General</h3>   
                 <ul class="nav side-menu">
                
                
@@ -98,7 +99,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     </ul>
                   </li>
                   
-            <!--   <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+              <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="chartjs.html">Chart JS</a></li>
                       <li><a href="chartjs2.html">Chart JS2</a></li>
@@ -106,7 +107,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                       <li><a href="echarts.html">ECharts</a></li>
                       <li><a href="other_charts.html">Other Charts</a></li>
                     </ul>
-                  </li> -->
+                  </li>
                   
                      <li><a><i class="fa fa-home"></i> Mon association <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -119,7 +120,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
               <div class="menu_section">
               </div></div>
               
-               <!--  <h3>Live On</h3> 
+                <h3>Live On</h3> 
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
@@ -158,16 +159,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     </ul>
                   </li>                  
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
-                </ul> --> 
+                </ul> 
              
-            <!-- /sidebar menu -->
+            /sidebar menu
 
-            <!-- /menu footer buttons -->
+            /menu footer buttons
             <div class="sidebar-footer hidden-small">
               <a data-toggle="tooltip" data-placement="top" title="Paramètres">
                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
               </a>
-             <!--  --> <a data-toggle="tooltip" data-placement="top" title="Plein Ecran">
+              <a data-toggle="tooltip" data-placement="top" title="Plein Ecran">
                 <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
               </a> 
               
@@ -180,11 +181,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
               </a>
             </div>
             
-            <!-- /menu footer buttons -->
+            /menu footer buttons
           </div>
         </div>
 
-        <!-- top navigation -->
+        top navigation
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
@@ -202,12 +203,12 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                     <li><a href="profile.html"> Mon Profil</a></li>
                     <li>
                       <a href="javascript:;">
-                        <!-- <span class="badge bg-red pull-right">50%</span> -->
+                        <span class="badge bg-red pull-right">50%</span>
                         <span>Paramétres</span>
                       </a>
                     </li>
                     
-                  <!--    <li><a href="javascript:;">Help</a></li> -->
+                     <li><a href="javascript:;">Help</a></li>
                     <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Déconnexion </a></li>
                   </ul>
                 </li>
@@ -218,13 +219,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             </nav>
           </div>
         </div> 
-					
+				 -->	
             
 <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3><b>List Media </b></h3>
+                <h3><b>Liste des Medias </b></h3>
               </div>
 
               
@@ -283,8 +284,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <style>
     #UpdateMedia { color: #26B99A; } /* CSS link color */
   </style>
-       <td><a id="UpdateMedia" name="UpdateMedia"  th:href="@{'/EditeMedia'(IdMedia=${media.getIdMedia()})}" >Update <i class="fa fa-edit "></i></a></td>
-        <td><a id="DeleteMedia" name="DeleteMedia" th:href="@{'/DeleteMedia'(MediaId=${media.getIdMedia()})}"  >Delete <i class="fa fa-trash"></i></a></td>
+       <td><a id="UpdateMedia" name="UpdateMedia"  th:href="@{'/EditeMedia'(IdMedia=${media.getIdMedia()})}" >Modifer <i class="fa fa-edit "></i></a></td>
+        <td><a id="DeleteMedia" name="DeleteMedia" th:href="@{'/DeleteMedia'(MediaId=${media.getIdMedia()})}"  >Supprimer <i class="fa fa-trash"></i></a></td>
       
       <!-- th:href="@{'/PageRessUpdate'(RessId=${ressource.getIdRessource()})}" --th:href="@{'/deleteRess'(RessId=${ressource.getIdRessource()})}"
         <td><button type="submit" class="btn btn-light" name="updateA" th:value="${action.getIdAction()}">Update</button></td> 
@@ -302,7 +303,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </form>
 </div>
 </div>
-<
+</div></div>
 <script>
     $(document).ready(function(){
       var date_input=$('input[name="dateDebut"]'); //our date input has the name "date"

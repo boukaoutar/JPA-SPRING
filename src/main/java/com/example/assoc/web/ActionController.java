@@ -205,11 +205,11 @@ public class ActionController {
 		List<Projet> projets=projet.getAll();
 		model.addAttribute("projets", projets);
 		
-		Optional<Organisme> organismes = organismerepo.findById(1);
-		model.addAttribute( "organismes" , organismes.get());
+//		Optional<Organisme> organismes = organismerepo.findById(c.getIdOrganisme().getIdOrganisme());
+		model.addAttribute( "organismes" ,  c.getIdOrganisme());
 		
-		Optional<Contact> cntct = contact.findById(1);
-		model.addAttribute( "cntct" , cntct.get());
+//		Optional<Contact> cntct = contact.findById(1);
+		model.addAttribute( "cntct" , c);
 		
 		List<Typeaction> typesAct=typeaction.getAll();
 		model.addAttribute("typesAct", typesAct);
@@ -242,7 +242,10 @@ public class ActionController {
 	
 	
 	@RequestMapping("/NewAction")
-	public String NewAction(Model model) {
+	public String NewAction(Model model,HttpSession httpsession) {
+		
+		Contact c =(Contact) httpsession.getAttribute("contact");
+         
 		//session.setAttribute("dddd", "dfdf");
 		List<Quartier> quartiers=quartier.getAll();
 		model.addAttribute("quartiers", quartiers);
@@ -253,7 +256,10 @@ public class ActionController {
 		model.addAttribute("situations", situations);
 		List<Typeaction> typesAct=typeaction.getAll();
 		model.addAttribute("typesAct", typesAct);
-	
+model.addAttribute( "organismes" ,  c.getIdOrganisme());
+		
+//		Optional<Contact> cntct = contact.findById(1);
+		model.addAttribute( "cntct" , c);
 	    
 		return "PageAddAction";
 	}
@@ -299,9 +305,10 @@ public class ActionController {
 	
 	
 	@RequestMapping("/addAction")
-	public String AddAction(Model model,String ASituation,String dateDebut,String inputNom,String iputObjectif,@RequestParam("seletQuartier") String seletQuartier,
+	public String AddAction(Model model,HttpSession httpsession,String ASituation,String dateDebut,String inputNom,String iputObjectif,@RequestParam("seletQuartier") String seletQuartier,
 	@RequestParam("seletTypeAction") String seletTypeAction,@RequestParam("seletProjet") String seletProjet,int inputImpact,double inputBudget) 
 	{   int i=0;
+	Contact c =(Contact) httpsession.getAttribute("contact");
 		/*List<Action> actions=actionMetierImp.getAll();
 		model.addAttribute("actions", actions);
 		List<Quartier> quartiers=quartier.getAll();
@@ -383,7 +390,7 @@ public class ActionController {
 		
 			
 			
-			act.setContact(cnt.get());
+			act.setContact(c);
 			
 			act.setImpact(inputImpact);
 			act.setBudget(inputBudget);
@@ -435,7 +442,7 @@ public class ActionController {
 		nvAction.setObjectif(UObjectif);
 		nvAction.setQuartier(quar.get());
 		nvAction.setProjet(proj.get());
-		nvAction.setContact(cnt.get());
+//		nvAction.setContact(cnt.get());
 		nvAction.setSituation(situation);
 		nvAction.setImpact(UImpact);
 		nvAction.setBudget(UBudget);
@@ -455,9 +462,11 @@ public class ActionController {
 	
 //	@RequestMapping("/EditeAction")
 	@RequestMapping(value = "/EditeAction", method = { RequestMethod.GET, RequestMethod.POST })
-	public String EditeAction(Model model,@RequestParam("updateA") String updateA) {
+	public String EditeAction(Model model,@RequestParam("updateA") String updateA,HttpSession httpsession) {
 		/*,@RequestParam("updateA") String updateA*/
-		
+		Contact c =(Contact) httpsession.getAttribute("contact");
+        model.addAttribute( "organismes" ,  c.getIdOrganisme());
+		model.addAttribute( "cntct" , c);
 		List<Quartier> quartiers=quartier.getAll();
 		model.addAttribute("quartiers", quartiers);
 		
@@ -571,20 +580,33 @@ public class ActionController {
 	
 	
 	@RequestMapping("/Media")
-	  public String UploadPage(Model model) {
-		List<Action> actions=actionMetierImp.getAll();
+	  public String UploadPage(Model model,HttpSession httpsession) {
+		Contact c =(Contact) httpsession.getAttribute("contact");
+		if(c==null) {return "redirect:login";}
+		else {
+        model.addAttribute( "organismes" ,  c.getIdOrganisme());
+		model.addAttribute( "cntct" , c);
+//		List<Action> actions=actionMetierImp.getAll();
+		List<Action> actions= actionrepo.findlistactionByorganisme(c.getIdOrganisme().getIdOrganisme());
 		model.addAttribute("actions", actions);
 		
 		List<Typemedia> mediatypes=typemediarepo.findAll();
 		model.addAttribute("mediatypes", mediatypes);
-		  return "uploadview";
+		  return "uploadview";}
 		  
 	  }
 	
 	@RequestMapping("/ListMedia")
-	  public String MediaList(Model model) {
+	  public String MediaList(Model model,HttpSession httpsession) {
+		
+		Contact c =(Contact) httpsession.getAttribute("contact");
+		if(c==null) {return "redirect:login";}
+		else {
+        model.addAttribute( "organismes" ,  c.getIdOrganisme());
+		model.addAttribute( "cntct" , c);
 		List<Action> actions=actionMetierImp.getAll();
-		List<Media> medias=mediarepo.findAll();
+//		List<Media> medias=mediarepo.findAll();
+		List<Media> medias=mediarepo.findMediaActionByorganisme(c.getIdOrganisme().getIdOrganisme());
 		model.addAttribute("actions", actions);
 		model.addAttribute("medias", medias);
 		
@@ -598,13 +620,22 @@ public class ActionController {
 //	        System.out.println(modelKey + " -- " + modelValue);
 //	    }
 //		
-		  return "MediaAction";
+		  return "MediaAction";}
 		  
 	  }
 	
 	@RequestMapping("/EditeMedia")
-	  public String MediaUpdate(Model model ,@RequestParam("IdMedia")String IdMedia) {
-		List<Action> actions=actionMetierImp.getAll();
+	  public String MediaUpdate(Model model ,@RequestParam("IdMedia")String IdMedia,HttpSession httpsession) {
+		Contact c =(Contact) httpsession.getAttribute("contact");
+		if(c==null)
+		{
+			return "redirect:login";
+		}
+		else {
+        model.addAttribute( "organismes" ,  c.getIdOrganisme());
+		model.addAttribute( "cntct" , c);
+//		List<Action> actions=actionMetierImp.getAll();
+		List<Action> actions= actionrepo.findlistactionByorganisme(c.getIdOrganisme().getIdOrganisme());
 		//List<Media> medias=mediarepo.findAll();
 		//model.addAttribute("medias", medias);
 		model.addAttribute("actions", actions);
@@ -616,7 +647,7 @@ public class ActionController {
 		
 		
 		
-		  return "UpdateMedia";
+		  return "UpdateMedia";}
 		  
 	  }
 	

@@ -226,10 +226,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <div class="page-title">
               <div class="title_left">
                 
-               <a   name="act" th:href="@{/NewAction}" ><h3>   New</h3></a>
-               <h2><b>List actions</b></h2>
+               <a   name="act" th:href="@{/NewAction}" ><small><h4>Nouvelle action</h4></small></a>
+               <h2><b>Liste des actions</b></h2>
                <style>
-    h3 { color: #6666ff; }
+    h4 { color: #6666ff; }
   </style>
               </div>
 
@@ -286,8 +286,8 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     #updateA { color: #26B99A; } 
   </style>
       <!-- <td><button type="submit" class="btn btn-light" name="updateA" th:value="${action.getIdAction()}">Update</button></td> -->
-      <td><a  id="updateA" name="updateA" th:href="@{'/EditeAction'(updateA=${action.getIdAction()})}" >Update<i class="fa fa-edit"></i></a></td>
-      <td><a  th:href="@{'/deleteA'(DeleteA=${action.getIdAction()})}"  id="Delete" name="Delete" >Delete<i class="fa fa-trash"></i></a></td>
+      <td><a  id="updateA" name="updateA" th:href="@{'/EditeAction'(updateA=${action.getIdAction()})}" >Modifer<i class="fa fa-edit"></i></a></td>
+      <td><a  th:href="@{'/deleteA'(DeleteA=${action.getIdAction()})}"  id="Delete" name="Delete" >Supprimer<i class="fa fa-trash"></i></a></td>
        
       
       <!--
@@ -352,7 +352,7 @@ $(document).ready(function() {
               </div>
             </div>
             </div></div>
-            </div></div>
+            </div>
            
         <!-- /page content -->
 
